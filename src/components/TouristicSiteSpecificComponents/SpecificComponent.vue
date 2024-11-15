@@ -37,11 +37,12 @@
 </template>
 
 <script>
-import axios from "axios";
+import { useSiteStore } from '../../stores/siteStore';
 
 export default {
   data() {
     return {
+      useSiteStore,
       sites: [],
       images: [],
       site: {},
@@ -50,6 +51,7 @@ export default {
     };
   },
   mounted() {
+    this.useSiteStore = useSiteStore();
     this.siteid = parseInt(this.$route.params.siteid, 10);
     this.fetchSites();
   },
@@ -57,10 +59,8 @@ export default {
   methods: {
     async fetchSites() {
       try {
-        const response = await axios.get(
-          "http://localhost:8080/api/tourist-places"
-        );
-        this.sites = response.data;
+        await this.useSiteStore.loadSites()
+        this.sites = this.useSiteStore.allSites;
         this.getSite();
       } catch (error) {
         console.error("Error al obtener sitios:", error);

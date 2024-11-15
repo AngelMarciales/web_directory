@@ -8,7 +8,7 @@
 
 <script>
 import EventCard from "./EventCard.vue";
-import axios from "axios";
+import { useEventStore } from "../../stores/eventStore";
 
 export default {
   components: {
@@ -16,17 +16,19 @@ export default {
   },
   data() {
     return {
+      useEventStore,
       events: [],
     };
   },
   mounted() {
+    this.useEventStore = useEventStore();
     this.fetchEvents();
   },
   methods: {
     async fetchEvents() {
       try {
-        const response = await axios.get('http://localhost:8080/api/events/current');
-        this.events = response.data;
+        await this.useEventStore.loadEvents();
+        this.events = this.useEventStore.allEvents;
       } catch (error) {
         console.error('Error al obtener eventos:', error);
       }

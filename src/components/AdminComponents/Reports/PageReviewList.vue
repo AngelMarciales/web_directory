@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { useReviewStore } from "../../../stores/reviewStore";
 import PageReviewCard from "./PageReviewCard.vue";
 
 export default {
@@ -23,29 +23,24 @@ export default {
   },
   data() {
     return {
+      useReviewStore,
       reviews: [],
     };
   },
   mounted() {
+    this.useReviewStore = useReviewStore();
     this.getReviews();
   },
   methods: {
     async getReviews() {
       try {
+        await this.useReviewStore.getWebsite();
         const token = localStorage.getItem("token");
         if (!token) {
           console.error("Token de autorización no encontrado");
           return; // Detén la ejecución si no hay token
         }
-        const response = await axios.get(
-          "http://localhost:8080/api/reviews/website",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        this.reviews = response.data;
+        this.reviews = this.useReviewStore.allWebsiteReviews;
       } catch (error) {
         console.error("Error al obtener el reporte:", error);
       }

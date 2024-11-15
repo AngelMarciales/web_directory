@@ -97,6 +97,7 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import { schema } from "../../plugins/schema.js";
 import PrincipalButton from "../GeneralComponents/PrincipalButton.vue";
 import DefaultModal from "../GeneralComponents/DefaultModal.vue";
+import api from "../../config/api.js";
 
 export default {
   components: {
@@ -169,8 +170,8 @@ export default {
           password: this.password,
           email: this.email,
         };
-        const response = await axios.post(
-          "http://localhost:8080/api/users/manager",
+        const response = await api.post(
+          "/api/users/manager",
           newUser,
           {
             headers: {

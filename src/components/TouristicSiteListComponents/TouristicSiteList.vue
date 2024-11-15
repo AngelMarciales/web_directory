@@ -8,23 +8,24 @@
 
 <script>
 import TouristicSiteCard from "./TouristicSiteCard.vue";
-import axios from "axios";
-
+import { useSiteStore } from "../../stores/siteStore";
 
 export default {
   data() {
     return {
+      useSiteStore,
       sites: [],
     };
   },
   mounted() {
+    this.useSiteStore = useSiteStore();
     this.fetchSites();
   },
   methods: {
     async fetchSites() {
       try {
-        const response = await axios.get('http://localhost:8080/api/tourist-places');
-        this.sites = response.data;
+        await this.useSiteStore.loadSites();
+        this.sites = this.useSiteStore.allSites;
       } catch (error) {
         console.error('Error al obtener sitios:', error);
       }

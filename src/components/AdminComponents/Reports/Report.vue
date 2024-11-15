@@ -77,7 +77,8 @@
 
 <script>
 import PrincipalButton from "../../GeneralComponents/PrincipalButton.vue";
-import axios from "axios";
+import api from "../../../config/api";
+
 export default {
   components: {
     PrincipalButton,
@@ -109,7 +110,7 @@ export default {
           console.error("Token de autorización no encontrado");
           return; // Detén la ejecución si no hay token
         }
-        const response = await axios.get("http://localhost:8080/api/reports", {
+        const response = await api.get("/api/reports", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -126,7 +127,7 @@ export default {
           console.error("Token de autorización no encontrado");
           return; // Detén la ejecución si no hay token
         }
-        const response = await axios.get("http://localhost:8080/api/reports/pdf", {
+        const response = await api.get("/api/reports/pdf", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
