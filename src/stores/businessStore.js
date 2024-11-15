@@ -71,6 +71,7 @@ export const useBusinessStore = defineStore("businessStore", {
           },
         });
         this.businessById = response.data;
+
       } catch (error) {
         console.error("Error al cargar los negocios:", error);
       }
@@ -79,7 +80,6 @@ export const useBusinessStore = defineStore("businessStore", {
     async getByType(typeId) {
       try {
         const response = await api.get(`/api/businesses/type/${typeId}`);
-        console.log("hola")
         this.businessByType = response.data;
       } catch (error) {
         console.error("Error al cargar los negocios:", error);
@@ -91,7 +91,7 @@ export const useBusinessStore = defineStore("businessStore", {
       if (!token) return; // Si no hay token, no hacemos la petición
       try {
         const response = await api.get(`/api/businesses/review/${count}`);
-        this.businessById = response.data;
+        this.businessByReview = response.data;
       } catch (error) {
         console.error("Error al cargar los negocios:", error);
       }
@@ -181,7 +181,7 @@ export const useBusinessStore = defineStore("businessStore", {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no hacemos la petición
       try {
-        await api.put(
+        await api.post(
           `/api/businesses/${businessId}/location`,
           updatedLocation,
           {
@@ -310,7 +310,7 @@ export const useBusinessStore = defineStore("businessStore", {
     },
 
     // Eliminar un evento
-    async deleteBusiness(businessId, contentId) {
+    async deleteContent(businessId, contentId) {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no hacemos la petición
       try {
@@ -417,7 +417,9 @@ export const useBusinessStore = defineStore("businessStore", {
      * Obtiene negocios por ID de usuario.
      * @returns {Array} Lista de negocios por usuario.
      */
-    businessesByUserId: (state) => state.businessById,
+    businessesByUserId (state) {
+      return state.businessById;
+    },
 
     /**
      * Obtiene negocios por tipo.

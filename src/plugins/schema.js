@@ -3,6 +3,7 @@ import * as yup from "yup";
 export const schema = yup.object().shape({
   name: yup.string().required(),
   password: yup.string().required(),
+  confirm_password: yup.string().required(),
   email: yup.string().email().required(),
   website: yup.string().url().nullable(),
   createdOn: yup.date().default(() => new Date()),
@@ -10,4 +11,5 @@ export const schema = yup.object().shape({
   file: yup.mixed().required("Agregue una imagen"),
   latitude: yup.number(),
   longitude: yup.number(),
+  number: yup.number(),
 });

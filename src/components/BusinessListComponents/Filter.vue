@@ -34,7 +34,7 @@
     <h3 class="title4">Valoración</h3>
     <div class="form-control">
       <label class="label cursor-pointer">
-        <span class="label-text">Peluquerías y barberías</span>
+        <span class="label-text">5 ☆☆☆☆☆</span>
         <input type="checkbox" v-model="filters.peluquerias" class="checkbox" />
       </label>
     </div>
@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import api from '../../config/api';
+
 export default {
   data() {
     return {
@@ -67,6 +69,9 @@ export default {
       ],
     };
   },
+  methods:{
+    
+  }
 };
 </script>
 

@@ -1,8 +1,9 @@
 <script setup>
+import BusinessOwner from '../../components/OwnerBusiness/BusinessOwner.vue';
 </script>
 
 <template>
   <main>
-    <h1>Local Propietario</h1>
+    <BusinessOwner />
   </main>
 </template>

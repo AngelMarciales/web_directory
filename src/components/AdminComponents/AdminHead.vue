@@ -190,7 +190,7 @@ export default {
       const modal = document.getElementById(id);
       console.log(modal);
       if (modal) {
-        modal.classList.add("open");
+        modal.showModal();
       } else {
         console.error(`Modal con id ${id} no encontrado.`);
       }
@@ -199,7 +199,7 @@ export default {
   closeModal(id) {
     const modal = document.getElementById(id);
     if (modal) {
-      modal.classList.remove("open");
+      modal.close();
     } else {
       console.error(`Modal con id ${id} no encontrado.`);
     }

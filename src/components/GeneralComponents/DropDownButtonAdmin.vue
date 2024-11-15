@@ -26,7 +26,11 @@
       role="menu"
     >
       <li>
-        <a class="dropdown-item" role="menuitem" tabindex="0"
+        <a
+          class="dropdown-item"
+          role="menuitem"
+          tabindex="0"
+          onclick="reset_password_modal_admin.showModal()"
           >Cambiar contraseña</a
         >
       </li>
@@ -46,19 +50,128 @@
       </li>
     </ul>
   </div>
+
+  <dialog id="reset_password_modal_admin" class="modal">
+    <div class="modal-box">
+      <Form :validation-schema="schema" method="dialog">
+        <Form method="dialog">
+          <button
+            class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+          >
+            ✕
+          </button>
+        </Form>
+        <div class="grid grid-cols-6 grid-rows-auto gap-4">
+          <div class="col-span-6">
+            <h3 class="title4 font-bold">
+              Bienvenido, ingresa los datos para continuar
+            </h3>
+          </div>
+          <div class="col-span-6 row-start-2">
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Antigua contraseña: </span>
+              </div>
+              <Field
+                v-model="oldpassword"
+                name="password"
+                type="text"
+                placeholder="Escriba su antigua contraseña"
+                class="input input-bordered w-full"
+              />
+              <ErrorMessage name="password"></ErrorMessage>
+            </label>
+          </div>
+          <div class="col-span-6 row-start-3">
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Nueva Contraseña</span>
+              </div>
+              <Field
+                v-model="newpassword"
+                name="confirm_password"
+                type="text"
+                class="input input-bordered w-full"
+                placeholder="Escriba su nueva contraseña"
+              />
+              <ErrorMessage name="confirm_password"></ErrorMessage>
+            </label>
+          </div>
+          <div class="col-span-3 row-start-4">
+            <PrincipalButton
+              @click="updatePassword()"
+              class="w-full"
+              buttonText="Cambiar Contraseña"
+            />
+          </div>
+          <div class="col-span-3 col-start-4 row-start-4">
+            <Form method="dialog">
+              <PrincipalButton
+                class="btn-cancel w-full"
+                buttonText="Cancelar"
+              />
+            </Form>
+          </div>
+        </div>
+      </Form>
+    </div>
+  </dialog>
 </template>
 
 <script>
 import { useUserStore } from "../../stores/user.js";
+import { Form, Field, ErrorMessage } from "vee-validate";
+import PrincipalButton from "./PrincipalButton.vue";
+import api from "../../config/api.js";
+import { schema } from "../../plugins/schema.js";
 
 export default {
   data() {
     return {
       isOpen: false,
       useUserStore,
+      oldpassword: "",
+      newpassword: "",
+      schema,
     };
   },
+  components: {
+    Form,
+    Field,
+    ErrorMessage,
+    PrincipalButton,
+  },
   methods: {
+    closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.close();
+      } else {
+        console.error(`Modal con id ${id} no encontrado.`);
+      }
+    },
+    async updatePassword() {
+      const token = localStorage.getItem("token");
+      const userid = localStorage.getItem("userId");
+      if (!token) {
+        console.error("Token de autorización no encontrado");
+        return;
+      }
+      try {
+        const data = {
+          oldPassword: this.oldpassword,
+          newPassword: this.newpassword,
+        };
+        api.put(`/api/users/${userid}`, data, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.closeModal("reset_password_modal_admin");
+      } catch (error) {
+        console.error(error);
+      }
+    },
     toggleDropdown() {
       this.isOpen = !this.isOpen;
     },
@@ -119,5 +232,9 @@ export default {
 .dropdown-item:hover {
   background-color: #c2c2c2;
   color: #000000;
+}
+
+.btn-cancel {
+  background: var(--primary2);
 }
 </style>

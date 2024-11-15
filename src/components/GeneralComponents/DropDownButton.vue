@@ -1,11 +1,11 @@
 <template>
   <button
-    onclick="login.showModal()"
+    onclick="loginForm.showModal()"
     class="btn m-1 btn-terciary w-40 py-4 rounded-lg shadow-md dropdown-toggle"
   >
     Ingresar
   </button>
-  <dialog id="login" class="modal">
+  <dialog id="loginForm" class="modal">
     <div class="modal-box">
       <Form :validation-schema="schema" method="dialog">
         <Form method="dialog">
@@ -58,7 +58,7 @@
           </div>
           <div class="col-span-3 row-start-4">
             <PrincipalButton
-              @click="login()"
+              @click="submitForm()"
               class="w-full"
               buttonText="Iniciar Sesión"
               onclick="modal_login.showModal()"
@@ -113,6 +113,7 @@
                 <span class="label-text">Correo electronico</span>
               </div>
               <Field
+                v-model="email"
                 type="email"
                 name="email"
                 placeholder="Escriba su correo electronico"
@@ -125,6 +126,7 @@
             <PrincipalButton
               class="w-full"
               buttonText="Solicitar nueva contraseña"
+              @click="resetPassword()"
             />
           </div>
           <div class="col-span-3 col-start-4 row-start-3">
@@ -147,6 +149,7 @@ import PrincipalButton from "./PrincipalButton.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { schema } from "../../plugins/schema.js";
 import { useUserStore } from "../../stores/user.js";
+import api from "../../config/api.js";
 
 export default {
   components: {
@@ -162,14 +165,54 @@ export default {
       useUserStore,
       username: null,
       password: null,
+      email: null,
     };
   },
   mounted() {
     this.useUserStore = useUserStore();
     this.username = "";
     this.password = "";
+    this.email = "";
   },
   methods: {
+    openModal(id) {
+      const modal = document.getElementById(id);
+      console.log(modal);
+      if (modal) {
+        modal.showModal();
+      } else {
+        console.error(`Modal con id ${id} no encontrado.`);
+      }
+    },
+    closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.close();
+      } else {
+        console.error(`Modal con id ${id} no encontrado.`);
+      }
+    },
+    async resetPassword() {
+      try {
+        const data = {
+          email: this.email,
+        };
+        await api.put("/api/users/reset-password", data);
+        this.closeModal("password_recovey_modal");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async submitForm() {
+      const formIsValid = true; //await this.$refs.loginForm.validate(); // Valida el formulario
+      if (formIsValid) {
+        this.login();
+      } else {
+        // Si no es válido, muestra un mensaje o maneja el error
+        this.message = "Formulario inválido";
+        console.log("Formulario inválido");
+      }
+    },
     async login() {
       try {
         const user = {

@@ -19,10 +19,12 @@ export const useUserStore = defineStore("user", () => {
       isAuthenticated.value = true;
       localStorage.setItem("token", response.data.jwt);
       localStorage.setItem("role", response.data.typeUser);
+      localStorage.setItem("userId", response.data.userId);
       localStorage.setItem("isAuthenticated", true);
       console.log("Login exitoso:");
     } catch (error) {
       console.error("Error al iniciar sesión.", error.response);
+      console.log(userId)
     }
   }
 
@@ -42,11 +44,14 @@ export const useUserStore = defineStore("user", () => {
     const storedToken = localStorage.getItem("token");
     const storedRole = localStorage.getItem("role");
     const storedAuth = localStorage.getItem("isAuthenticated") === "true";
+    const storedUserId = localStorage.getItem("userId");
+
 
     if (storedToken && storedAuth) {
       token.value = storedToken;
       role.value = storedRole;
       isAuthenticated.value = storedAuth;
+      userId.value = storedUserId;
     }
   }
 
@@ -67,5 +72,6 @@ export const useUserStore = defineStore("user", () => {
     isOwner,
     isVisitor,
     isOther,
+    userId,
   };
 });

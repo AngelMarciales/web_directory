@@ -103,7 +103,7 @@ const router = createRouter({
 
     //rutas propietario
     {
-      path: "/owner-business",
+      path: "/owner-business/:businessOwner",
       name: "OwnerBusiness",
       component: () => import("../views/Owner/OwnerBusinessView.vue"),
       meta: { requiresAuth: true, role: "OWNER" },

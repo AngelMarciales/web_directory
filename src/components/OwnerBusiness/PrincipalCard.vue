@@ -46,6 +46,7 @@
 <script>
 import PrincipalButton from "../GeneralComponents/PrincipalButton.vue";
 import { useBusinessStore } from "../../stores/businessStore";
+import { Form, Field, ErrorMessage } from "vee-validate";
 
 export default {
   data() {
@@ -79,6 +80,9 @@ export default {
   },
   components: {
     PrincipalButton,
+    Form,
+    Field,
+    ErrorMessage,
   },
 };
 </script>
