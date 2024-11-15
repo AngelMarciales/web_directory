@@ -17,13 +17,13 @@ import { ref } from "vue";
 
 const images = [
   {
-    src: "/src/assets/image1.jpg",
+    src: "https://i.ibb.co/fvGhgBX/image1.jpg",
   },
   {
-    src: "/src/assets/image2.jpg",
+    src: "https://i.ibb.co/RjX8v4r/image2.jpg",
   },
   {
-    src: "/src/assets/image3.jpg",
+    src: "https://i.ibb.co/2FrQB1F/image3.jpg",
   },
 ];
 
