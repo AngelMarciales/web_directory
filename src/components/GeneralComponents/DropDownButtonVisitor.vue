@@ -35,7 +35,7 @@
         >
       </li>
       <li>
-        <a class="dropdown-item" role="menuitem" tabindex="0">Cerrar sesión</a>
+        <a class="dropdown-item" role="menuitem" tabindex="0" @click="logout()">Cerrar sesión</a>
       </li>
     </ul>
   </div>

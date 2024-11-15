@@ -55,7 +55,7 @@
       ></textarea>
     </div>
     <div class="col-start-6 col-span-2">
-      <PrincipalButton buttonText="Enviar" @click="submitReview" />
+      <PrincipalButton buttonText="Enviar" @click="submitReview()" />
     </div>
   </div>
 </template>
@@ -89,17 +89,18 @@ export default {
     async submitReview() {
       const token = localStorage.getItem("token");
       const userid = localStorage.getItem("userId");
-      if (!this.useUserStore.isVisitor && !token){
+      if (!token){
         console.error("Señor  usuario usted no puede dejar reseñas con su cuenta actual. ");
         return;
       }
+      console.log(this.rating)
       const reviewData = {
         review: this.rating,
         description: this.comment,
         userId: userid, // Ejemplo de incluir el ID del negocio
       };
       try {
-        await api.post("/api/reviews", reviewData, {
+        await api.post(`/api/businesses/${this.business.id}/reviews`, reviewData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
