@@ -35,7 +35,9 @@
         >
       </li>
       <li>
-        <a class="dropdown-item" role="menuitem" tabindex="0" @click="logout()">Cerrar sesión</a>
+        <a class="dropdown-item" role="menuitem" tabindex="0" @click="logout()"
+          >Cerrar sesión</a
+        >
       </li>
     </ul>
   </div>
@@ -185,6 +187,41 @@ export default {
 </script>
 
 <style scoped>
+.btn-terciary {
+  background-color: #ec0d0d;
+  color: #000000;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+}
+
+.btn-terciary:hover {
+  background-color: #c2c2c2;
+}
+
+.dropdown-content {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0;
+  min-width: 160px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+}
+
+.dropdown-item {
+  color: #000000;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.2s;
+  border-radius: 0.5rem;
+  display: block;
+}
+
+.dropdown-item:hover {
+  background-color: #c2c2c2;
+  color: #000000;
+}
+
 .btn-cancel {
   background: var(--primary2);
 }
