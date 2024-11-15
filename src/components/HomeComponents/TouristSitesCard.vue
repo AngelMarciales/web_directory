@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { useSiteStore } from '../../stores/siteStore';
 import TouristSiteCardVue from './TouristSiteCard.vue';
 
 export default {
@@ -27,17 +27,19 @@ export default {
   props: {},
   data() {
     return {
+      useSiteStore,
       sites: [],
     };
   },
   mounted() {
+    this.useSiteStore = useSiteStore();
     this.fetchSites();
   },
   methods: {
     async fetchSites() {
       try {
-        const response = await axios.get('http://localhost:8080/api/tourist-places');
-        this.sites = response.data;
+        await this.useSiteStore.loadSites();
+        this.sites = this.useSiteStore.allSites;
       } catch (error) {
         console.error('Error al obtener sitios:', error);
       }

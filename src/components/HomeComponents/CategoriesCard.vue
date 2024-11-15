@@ -390,22 +390,23 @@
 </template>
 
 <script>
-import axios from "axios";
+import { useTypeStore } from '../../stores/typeStore';
 export default {
   data() {
     return {
+      useTypeStore,
       categories: [],
     };
   },
   mounted() {
+    this.useTypeStore = useTypeStore();
     this.fetchCategories();
   },
   methods: {
     async fetchCategories() {
       try {
-        const response = await axios.get(
-          "http://localhost:8080/api/businesses/types"
-        );
+        await this.useTypeStore.getTypes();
+        this.categories = this.useTypeStore.allTypes;
         this.categories = response.data;
       } catch (error) {
         console.error("Error al obtener categorías:", error);
