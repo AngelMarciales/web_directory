@@ -4,6 +4,8 @@
       <input
         type="text"
         class="w-full py-2 px-4"
+        v-model="searchTerm"
+        @input="updateSearchTerm"
         placeholder="Buscar"
       />
       <img
@@ -14,3 +16,32 @@
     </label>
   </div>
 </template>
+
+<script>
+import { useBusinessStore } from '../../stores/businessStore';
+
+export default {
+  computed: {
+    searchTerm: {
+      get() {
+        const store = useBusinessStore();
+        return store.searchTerm;
+      },
+      set(value) {
+        const store = useBusinessStore();
+        store.setSearchTerm(value);
+      },
+    },
+  },
+  methods: {
+    updateSearchTerm() {
+      // Se actualiza el término de búsqueda en el store
+      const store = useBusinessStore();
+      store.setSearchTerm(this.searchTerm);
+    },
+  },
+  gotoBusiness(){
+    
+  }
+};
+</script>

@@ -3,6 +3,7 @@ import api from "../config/api";
 
 export const useBusinessStore = defineStore("businessStore", {
   state: () => ({
+    searchTerm: '', 
     businessEnabled: [],
     businessDisabled: [],
     businessNonValidate: [],
@@ -13,6 +14,10 @@ export const useBusinessStore = defineStore("businessStore", {
   }),
 
   actions: {
+
+    setSearchTerm(term) {
+      this.searchTerm = term;
+    },
     // Obtener el token de localStorage
     getToken() {
       const token = localStorage.getItem("token");
@@ -98,8 +103,6 @@ export const useBusinessStore = defineStore("businessStore", {
     },
 
     async getAverageReview(businessId) {
-      const token = this.getToken();
-      if (!token) return; // Si no hay token, no hacemos la petición
       try {
         const response = await api.get(
           `/api/businesses/${businessId}/average-review`
@@ -446,5 +449,11 @@ export const useBusinessStore = defineStore("businessStore", {
      */
     getBusinessById: (state) => (businessId) =>
       state.businessEnabled.find((business) => business.id === businessId),
+
+    filteredBusinesses: (state) => {
+      return state.businessEnabled.filter((business) =>
+        business.name.toLowerCase().includes(state.searchTerm.toLowerCase())
+      );
+    },
   },
 });

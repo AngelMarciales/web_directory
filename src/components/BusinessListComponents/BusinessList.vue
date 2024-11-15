@@ -2,7 +2,9 @@
   <div class="grid grid-cols-12 gap-2">
     <div class="col-span-12">
       <BusinessCard
-        v-for="business in businessList"
+        v-for="business in filteredBusinesses.length
+          ? filteredBusinesses
+          : businessList"
         :key="business.id"
         :business="business"
       />
@@ -21,6 +23,12 @@ export default {
       businessList: [],
       typeId: null,
     };
+  },
+  computed: {
+    filteredBusinesses() {
+      const store = useBusinessStore();
+      return store.filteredBusinesses; // Getter del store
+    },
   },
   mounted() {
     this.useBusinessStore = useBusinessStore();

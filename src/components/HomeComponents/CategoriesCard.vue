@@ -31,7 +31,7 @@
       </div>
     </div>
     <div
-      @click="validateCategoryName('Hotel')"
+      @click="validateCategoryName('Hoteles')"
       class="card bg-custom-card w-36 h-40 rounded-md hover:scale-150 transition-transform duration-300 hover:bg-custom-hover"
     >
       <figure class="px-10 pt-10">
