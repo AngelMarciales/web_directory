@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary1: #1A5414;
+    --secondary1: #347D27;
+    --primary2: #BF0413;
+    --secondary2: #8C030E;
+    --neutro1: #000000;
+    --neutro2: #767676;
+    --neutro3: #C2C2C2;
+    --neutro4: #ffffff;
+}
+
+.title1 {
+    font-family: href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet";
+    font-size: 2.25rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+.title2 {
+    font-family: href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet";
+    font-size: 2rem;
+    font-weight: medium;
+    color: #000000;
+}
+
+.title3 {
+    font-family: href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet";
+    font-size: 1.5rem;
+    font-weight: medium;
+    color: #000000;
+}
+
+.title4 {
+    font-family: href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet";
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+.title5 {
+    font-family: href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet";
+    font-size: 1rem;
+    font-weight: semibold;
+    color: #000000;
+}
+
+.title-text {
+    font-family: work;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #000000;
+}
+
+.text {
+    font-family: href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap" rel="stylesheet";
+    font-size: 1rem;
+    font-weight: regular;
+    color: #000000;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.btn-terciary {
+    background-color: #FFFFFF;
+    color: #000000;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+}
+
+.btn-terciary:hover {
+    background-color: #C2C2C2;
+}
+
+.dropdown-content {
+    background-color: #FFFFFF;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0;
+    min-width: 160px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+}
+
+.dropdown-item {
+    color: #000000;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s;
+    border-radius: 0.5rem;
+    display: block;
+}
+
+.dropdown-item:hover {
+    background-color: #C2C2C2;
+    color: #000000;
+}
+
+.dropdown-toggle:focus+.dropdown-content,
+.dropdown-toggle:hover+.dropdown-content {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
