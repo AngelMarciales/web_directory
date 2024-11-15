@@ -135,6 +135,7 @@ export default {
           },
         });
         this.pdf = response.data;
+        window.open(response.data, '_blank');
         console.log(this.pdf)
       } catch (error) {
         console.error("Error al obtener el reporte:", error);
