@@ -85,6 +85,7 @@ export default {
   },
   data() {
     return {
+      pdf: "",
       report: {
         totalBusinessVisits: 0,
         lastMonthBusinessVisits: 0,
@@ -123,16 +124,18 @@ export default {
     async generateReport() {
       try {
         const token = localStorage.getItem("token");
+        console.log(token)
         if (!token) {
           console.error("Token de autorización no encontrado");
           return; // Detén la ejecución si no hay token
         }
-        const response = await api.get("/api/reports/pdf", {
+        const response = await api.get(`/api/reports/pdf`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        this.report = response.data;
+        this.pdf = response.data;
+        console.log(this.pdf)
       } catch (error) {
         console.error("Error al obtener el reporte:", error);
       }

@@ -162,7 +162,8 @@ export default {
       }
     },
     logout() {
-      this.useUserStore.logout();
+      const userStore = useUserStore();
+      userStore.logout();
       this.$router.push({ name: "Home" });
     },
     toggleDropdown() {
