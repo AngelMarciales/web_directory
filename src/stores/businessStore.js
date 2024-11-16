@@ -23,7 +23,7 @@ export const useBusinessStore = defineStore("businessStore", {
     async filterBusinessesByReview() {
       this.getEnabled();
       this.filteredBusinessesReview = []; // Asegúrate de limpiar antes de filtrar
-      for (const business of this.businessEnabled) {
+      for (const business of this.businessByType) {
         try {
           await this.getAverageReview(business.id);
           let averageReview = 0;
@@ -479,7 +479,7 @@ export const useBusinessStore = defineStore("businessStore", {
       state.businessEnabled.find((business) => business.id === businessId),
 
     filteredBusinesses: (state) => {
-      return state.businessEnabled.filter((business) =>
+      return state.businessByType.filter((business) =>
         business.name.toLowerCase().includes(state.searchTerm.toLowerCase())
       );
     },

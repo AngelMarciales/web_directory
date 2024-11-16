@@ -3,6 +3,15 @@
     <PrincipalCard :key="business.id" :business="business" />
     <div class="main-content grid grid-cols-12 auto-rows-auto gap-10">
       <div class="col-span-8 col-start-1 row-span-1">
+        <div class="dropdown dropdown-left">
+          <div tabindex="0" role="button" class="btn m-1">...</div>
+          <ul
+            tabindex="0"
+            class="dropdown-content menu bg-base-100 rounded-box z-[1] absolute right-2 top-2 shadow"
+          >
+            <li><a @click="openModal(`edit_event_${id}`)">Editar</a></li>
+          </ul>
+        </div>
         <p class="text">{{ business.description }}</p>
       </div>
       <div class="col-span-8 row-span-1 col-start-1">
@@ -22,8 +31,6 @@
       </div>
     </div>
   </main>
-
-
 </template>
 
 <script>
@@ -38,7 +45,6 @@ import { schema } from "../../plugins/schema.js";
 import { useUserStore } from "../../stores/user.js";
 import { useBusinessStore } from "../../stores/businessStore.js";
 import PrincipalButton from "../GeneralComponents/PrincipalButton.vue";
-
 
 export default {
   components: {
@@ -87,8 +93,8 @@ export default {
     },
     getBusiness() {
       for (let business of this.businesses) {
-        console.log(this.businesses)
-        console.log(this.businessid)
+        console.log(this.businesses);
+        console.log(this.businessid);
         if (business.id === this.businessid) {
           this.business = business;
           return;
