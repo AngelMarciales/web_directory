@@ -87,7 +87,7 @@ export default {
   data() {
     return {
       useBusinessStore,
-      reviewAverage: null,
+      reviewAverage: 0,
     };
   },
   mounted() {
@@ -98,7 +98,7 @@ export default {
   methods: {
     async getReviewAverage() {
       try {
-        await this.useBusinessStore.getAverageReview(this.business.id);
+        await this.useBusinessStore.getAverageReview(this.business?.id);
         this.useBusinessStore.getEnabled();
 
         this.reviewAverage = this.useBusinessStore.AverageReview;

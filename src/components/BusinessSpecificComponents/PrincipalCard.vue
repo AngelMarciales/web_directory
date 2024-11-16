@@ -51,7 +51,7 @@ export default {
   data() {
     return {
       useBusinessStore,
-      reviewAverage: null,
+      reviewAverage: 0,
     };
   },
   mounted() {

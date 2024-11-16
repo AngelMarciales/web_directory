@@ -202,7 +202,7 @@
       <p class="py-4">Despues de borrar no se puede recuperar el elemento</p>
       <div class="grid grid-cols-2 grid-rows-auto">
         <PrincipalButton
-          @click="deleteEvent(`delete_event_${id}`)"
+          @click="deleteContent(`delete_event_${id}`)"
           class="w-full"
           buttonText="Eliminar"
         />
@@ -315,6 +315,7 @@ export default {
           this.businessContent.id
         );
         this.closeModal(id);
+        window.location.reload();
       } catch (error) {
         this.message = "Error al eliminar el evento:" + error.data;
         this.openModal("defaultmodal");

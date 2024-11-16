@@ -3,14 +3,14 @@
     @click="goToBusiness(business.id)"
     class="card card-side bg-base-100 shadow-lg border-2 border-gray rounded-box gap-4"
   >
-    <figure>
+    <figure  class="w-64 h-64  flex-shrink-0">
       <img
         :src="
           business.images && business.images.length > 0
             ? business.images[0].url
             : 'https://i.ibb.co/nnc7CkR/default-image.jpg'
         "
-        class="h-64 w-64 object-cover"
+        class="h-full w-full object-cover"
       />
     </figure>
     <div class="card-body p-2">
@@ -52,7 +52,7 @@ export default {
   methods: {
     async getAverageReview() {
       try {
-        await this.useBusinessStore.getAverageReview(this.business.id);
+        await this.useBusinessStore.getAverageReview(this.business?.id);
         this.averageReview = this.useBusinessStore.AverageReview;
       } catch (error) {
         console.error("Error al obtener el promedio de reseñas:", error);
