@@ -3,7 +3,7 @@ import api from "../config/api";
 
 export const useBusinessStore = defineStore("businessStore", {
   state: () => ({
-    searchTerm: '', 
+    searchTerm: "",
     businessEnabled: [],
     businessDisabled: [],
     businessNonValidate: [],
@@ -11,12 +11,38 @@ export const useBusinessStore = defineStore("businessStore", {
     businessByType: [],
     businessByReview: [],
     businessAverageReview: 0,
+    filteredRatings: [],
+    filteredBusinessesReview: [],
   }),
 
   actions: {
-
     setSearchTerm(term) {
       this.searchTerm = term;
+    },
+
+    async filterBusinessesByReview() {
+      this.getEnabled();
+      this.filteredBusinessesReview = []; // Asegúrate de limpiar antes de filtrar
+      for (const business of this.businessEnabled) {
+        try {
+          await this.getAverageReview(business.id);
+          let averageReview = 0;
+          if (
+            this.businessAverageReview !== undefined &&
+            this.businessAverageReview !== null
+          ) {
+            averageReview = Math.round(this.businessAverageReview);
+            if (this.filteredRatings.includes(averageReview)) {
+              this.filteredBusinessesReview.push(business);
+            }
+          }
+        } catch (error) {
+          console.error(
+            `Error al obtener el promedio de reseñas para ${business.id}:`,
+            error
+          );
+        }
+      }
     },
     // Obtener el token de localStorage
     getToken() {
@@ -76,7 +102,6 @@ export const useBusinessStore = defineStore("businessStore", {
           },
         });
         this.businessById = response.data;
-
       } catch (error) {
         console.error("Error al cargar los negocios:", error);
       }
@@ -111,6 +136,10 @@ export const useBusinessStore = defineStore("businessStore", {
       } catch (error) {
         console.error("Error al cargar los negocios:", error);
       }
+    },
+
+    updateRatingsFilter(ratings) {
+      this.filteredRatings = ratings; // Actualizar las valoraciones seleccionadas
     },
 
     // Agregar un nuevo evento
@@ -373,8 +402,7 @@ export const useBusinessStore = defineStore("businessStore", {
       }
     },
 
-    // Eliminar un evento
-    async deleteBusiness(businessId, reviewId) {
+    async deleteReview(businessId, reviewId) {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no hacemos la petición
       try {
@@ -412,15 +440,15 @@ export const useBusinessStore = defineStore("businessStore", {
      * Obtiene todos los negocios no validados.
      * @returns {Array} Lista de negocios no validados.
      */
-    allNonValidated (state){
+    allNonValidated(state) {
       return state.businessNonValidate;
-    } ,
+    },
 
     /**
      * Obtiene negocios por ID de usuario.
      * @returns {Array} Lista de negocios por usuario.
      */
-    businessesByUserId (state) {
+    businessesByUserId(state) {
       return state.businessById;
     },
 
@@ -454,6 +482,10 @@ export const useBusinessStore = defineStore("businessStore", {
       return state.businessEnabled.filter((business) =>
         business.name.toLowerCase().includes(state.searchTerm.toLowerCase())
       );
+    },
+
+    getfilteredBusinessesReview(state) {
+      return state.filteredBusinessesReview;
     },
   },
 });

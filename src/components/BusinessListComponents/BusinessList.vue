@@ -2,7 +2,9 @@
   <div class="grid grid-cols-12 gap-2">
     <div class="col-span-12">
       <BusinessCard
-        v-for="business in filteredBusinesses.length
+        v-for="business in filteredBusinessesReview.length > 0
+          ? filteredBusinessesReview
+          : filteredBusinesses.length > 0
           ? filteredBusinesses
           : businessList"
         :key="business.id"
@@ -29,6 +31,10 @@ export default {
       const store = useBusinessStore();
       return store.filteredBusinesses; // Getter del store
     },
+    filteredBusinessesReview() {
+      const store = useBusinessStore();
+      return store.getfilteredBusinessesReview;
+    },
   },
   mounted() {
     this.useBusinessStore = useBusinessStore();
@@ -44,9 +50,15 @@ export default {
         console.error("Error al obtener categorías:", error);
       }
     },
+    async filterBusinesses() {
+      await this.useBusinessStore.filterBusinessesByReview();
+    },
   },
   components: {
     BusinessCard,
+  },
+  watch: {
+    "useBusinessStore.filteredRatings": "filterBusinesses",
   },
 };
 </script>
