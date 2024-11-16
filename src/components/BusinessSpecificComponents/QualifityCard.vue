@@ -64,6 +64,7 @@
 import PrincipalButton from "../GeneralComponents/PrincipalButton.vue";
 import api from "../../config/api";
 import { useUserStore } from "../../stores/user";
+import { useBusinessStore } from "../../stores/businessStore";
 
 export default {
   components: {
@@ -78,14 +79,27 @@ export default {
   data() {
     return {
       useUserStore,
+      useBusinessStore,
       rating: 5, // Para guardar la calificación seleccionada
       comment: "", // Para guardar el comentario
     };
   },
   mounted() {
     this.useUserStore = useUserStore();
+    this.useBusinessStore = useBusinessStore();
+    this.fetchBusinesses();
   },
   methods: {
+    async fetchBusinesses() {
+      try {
+        await this.useBusinessStore.getEnabled();
+        this.businesses = this.useBusinessStore.allEnabled;
+        console.log(this.businesses);
+        this.getBusiness();
+      } catch (error) {
+        console.error("Error al obtener los negocios:", error);
+      }
+    },
     async submitReview() {
       const token = localStorage.getItem("token");
       const role = localStorage.getItem("role");
@@ -114,6 +128,7 @@ export default {
             },
           }
         );
+        window.location.reload();
       } catch (error) {
         console.error(error);
       }

@@ -218,4 +218,8 @@ export default {
   margin-top: 50px;
   margin-bottom: 50px;
 }
+
+.btn-cancel {
+  background: var(--primary2);
+}
 </style>

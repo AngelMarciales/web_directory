@@ -208,7 +208,7 @@ export const useBusinessStore = defineStore("businessStore", {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no hacemos la petición
       try {
-        await api.put(
+        await api.post(
           `/api/businesses/${businessId}/validate`,
           {},
           {

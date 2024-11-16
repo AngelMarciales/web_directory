@@ -313,6 +313,7 @@ export default {
         this.message =
           "¡Se  le enviara un correo electronico con los datos necesarios para el inicio de sesión.!" +
           response.data;
+          alert("¡Se  le enviara un correo electronico con los datos necesarios para el inicio de sesión.!" )
       } catch (error) {
         this.message =
           "Error al enviar el formulario: revise el valor de los campos";

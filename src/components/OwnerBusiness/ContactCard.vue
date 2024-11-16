@@ -212,3 +212,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.btn-cancel {
+  background: var(--primary2);
+}
+</style>
