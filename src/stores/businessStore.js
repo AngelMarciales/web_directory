@@ -92,6 +92,21 @@ export const useBusinessStore = defineStore("businessStore", {
       }
     },
 
+    async getById(businessId) {
+      const token = this.getToken();
+      if (!token) return; // Si no hay token, no hacemos la petición
+      try {
+        const response = await api.get(`/api/businesses/${businessId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.businessById = response.data;
+      } catch (error) {
+        console.error("Error al cargar los negocios:", error);
+      }
+    },
+
     async getByUserId(userId) {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no hacemos la petición

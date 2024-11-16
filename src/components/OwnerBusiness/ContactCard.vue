@@ -7,9 +7,6 @@
         class="dropdown-content menu bg-base-100 rounded-box z-[1] absolute right-2 top-2 shadow"
       >
         <li><a @click="openModal(`edit_contact_${business.id}`)">Editar</a></li>
-        <li>
-          <a @click="openModal(`delete_event_${business.id}`)">Eliminar</a>
-        </li>
       </ul>
     </div>
     <div class="card-body">
@@ -116,6 +113,42 @@ import { schema } from "../../plugins/schema";
 import { useBusinessStore } from "../../stores/businessStore";
 
 export default {
+  data() {
+    return {
+      schema,
+      useBusinessStore,
+    };
+  },
+  computed: {
+    address: {
+      get() {
+        return this.business?.address || "";
+      },
+      set(value) {
+        this.business.address = value;
+      },
+    },
+    phoneNumber: {
+      get() {
+        return this.business?.phoneNumber || 0;
+      },
+      set(value) {
+        this.business.phoneNumber = value;
+      },
+    },
+    website: {
+      get() {
+        return this.business?.website || "";
+      },
+      set(value) {
+        this.business.website = value;
+      },
+    },
+  },
+  mounted() {
+    this.useBusinessStore = useBusinessStore();
+    this.fetchBusiness();
+  },
   components: {
     PrincipalButton,
     Form,
@@ -128,20 +161,14 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      schema,
-      useBusinessStore,
-      address: this.business.address,
-      phoneNumber: this.business.phoneNumber,
-      website: this.business.website,
-    };
-  },
-  mounted() {
-    this.useBusinessStore = useBusinessStore();
-  },
   methods: {
-
+    async fetchBusiness() {
+      try {
+        await this.useBusinessStore.getEnabled(); // Asegurarse de que los eventos se cargan
+      } catch (error) {
+        console.error("Error al obtener eventos:", error);
+      }
+    },
     openModal(id) {
       const modal = document.getElementById(id);
       if (modal) {
@@ -161,8 +188,9 @@ export default {
     },
 
     async updateContact(id) {
+      console.log(this.business.id);
       const newBusiness = {
-        name: this.business.name,
+        name: this.business?.name,
         rut: this.business.rut,
         commercialRegistration: this.business.commercialRegistration,
         registrationDate: this.business.registrationDate,
@@ -176,10 +204,7 @@ export default {
         email: null,
       };
       try {
-        await this.useBusinessStore.updateBusiness(
-          this.business.id,
-          newBusiness
-        );
+        this.useBusinessStore.updateBusiness(this.business.id, newBusiness);
         this.closeModal(id);
       } catch (error) {
         console.error(error);
