@@ -130,7 +130,7 @@
             />
           </div>
           <div class="col-span-3 col-start-4 row-start-3">
-            <Form>
+            <Form method="dialog">
               <PrincipalButton
                 class="btn-cancel w-full"
                 buttonText="Cancelar"

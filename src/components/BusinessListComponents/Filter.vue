@@ -30,17 +30,9 @@
       <div class="form-control">
         <label class="label cursor-pointer">
           <span class="label-text">1 ☆</span>
-          <input type="checkbox" v-model="filters.dos_estrellas" class="checkbox" />
+          <input type="checkbox" v-model="filters.uno_estrella" class="checkbox" />
         </label>
       </div>
-    </div>
-
-    <h3 class="title4">Categorías más populares</h3>
-    <div class="form-control" v-for="(category, index) in categories" :key="index">
-      <label class="label cursor-pointer">
-        <span class="label-text">{{ category.name }}</span>
-        <input type="checkbox" v-model="category.checked" class="checkbox" />
-      </label>
     </div>
 
   </div>
@@ -59,13 +51,6 @@ export default {
         dos_estrellas: false,
         uno_estrella: false,
       },
-      categories: [
-        { name: 'Restaurantes', checked: false },
-        { name: 'Hoteles', checked: false },
-        { name: 'Tiendas', checked: false },
-        { name: 'Farmacias', checked: false },
-        { name: 'Supermercados', checked: false },
-      ],
     };
   },
   methods:{

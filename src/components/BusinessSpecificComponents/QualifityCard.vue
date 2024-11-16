@@ -87,6 +87,7 @@ export default {
   },
   methods: {
     async submitReview() {
+      const token = localStorage.getItem("token");
       const role = localStorage.getItem("role");
       const userid = localStorage.getItem("userId");
       if (!role) {

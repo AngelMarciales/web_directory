@@ -3,10 +3,7 @@
     <PrincipalCard :key="business.id" :business="business" />
     <div class="main-content grid grid-cols-12 auto-rows-auto gap-4">
       <div class="col-span-2 row-span-1">
-        <PrincipalButton
-          @click="writeReview()"
-          buttonText="Escribir reseña"
-        />
+        <PrincipalButton @click="writeReview()" buttonText="Escribir reseña" />
         <dialog id="modal_review" class="modal" v-if="!isAuthenticated">
           <div class="modal-box">
             <Form :validation-schema="schema" method="dialog">
@@ -46,7 +43,7 @@
                   />
                 </div>
                 <div class="col-span-3 col-start-4 row-start-3">
-                  <Form>
+                  <Form method="dialog">
                     <PrincipalButton
                       class="btn-cancel w-full"
                       buttonText="Cancelar"
@@ -74,7 +71,7 @@
         <BusinessQualification :business="business" />
       </div>
       <div id="writeReview" class="col-span-8 row-span-1">
-        <QualifityCard :business="business"  @open-modal="openModal"/>
+        <QualifityCard :business="business" @open-modal="openModal" />
       </div>
       <div class="col-span-8 row-span-1">
         <ReviewCardList :business="business" />
@@ -152,22 +149,23 @@ export default {
         }
       }
     },
-    writeReview(){
-        if (this.useUserStore.isAuthenticated == true) {
-          const section = document.getElementById('writeReview');
-            section.scrollIntoView({ behavior: 'smooth' });
-          console.log("holaaa")
-        } else {
-          this.openModal("modal_review");
-        }
+    writeReview() {
+      if (this.useUserStore.isAuthenticated == true) {
+        const section = document.getElementById("writeReview");
+        section.scrollIntoView({ behavior: "smooth" });
+      } else {
+        this.openModal("modal_review");
+      }
     },
     createUser() {
       try {
-          const data = {
-            email: this.email,
-          };
-          const response = this.useUserStore.createUser(data);
-          console.log(response.data);
+        const data = {
+          email: this.email,
+        };
+        const response = this.useUserStore.createUser(data);
+        alert("Se le enviaron las credenciales de acceso a su correo electronico, inicia sesión");
+        this.closeModal("modal_review");
+        console.log(response.data);
       } catch (error) {}
     },
     openModal(id) {
@@ -197,5 +195,9 @@ export default {
   margin-right: 80px;
   margin-top: 50px;
   margin-bottom: 50px;
+}
+
+.btn-cancel {
+  background: var(--primary2);
 }
 </style>
