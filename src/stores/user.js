@@ -28,6 +28,16 @@ export const useUserStore = defineStore("user", () => {
     }
   }
 
+  async function createUser(email){
+    try {
+      const response = await api.post("/api/users/tourist", email);
+      return response.data;
+    } catch (error) {
+      console.log("error al crear ususario", error);
+      return error;
+    }
+  }
+
   // Método para cerrar sesión
   function logout() {
     isAuthenticated.value = false;
@@ -68,6 +78,7 @@ export const useUserStore = defineStore("user", () => {
     login,
     logout,
     loadUserData,
+    createUser,
     isAdmin,
     isOwner,
     isVisitor,

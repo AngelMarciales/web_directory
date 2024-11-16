@@ -82,29 +82,37 @@ export default {
       comment: "", // Para guardar el comentario
     };
   },
-  mounted(){
+  mounted() {
     this.useUserStore = useUserStore();
   },
   methods: {
     async submitReview() {
-      const token = localStorage.getItem("token");
+      const role = localStorage.getItem("role");
       const userid = localStorage.getItem("userId");
-      if (!token){
-        console.error("Señor  usuario usted no puede dejar reseñas con su cuenta actual. ");
+      if (!role) {
+        this.$emit("open-modal", "modal_review");
+      } else if (role != "TOURIST") {
+        alert(
+          "Señor usuario usted no puede dejar reseñas con su cuenta actual."
+        );
         return;
       }
-      console.log(this.rating)
+      console.log(this.rating);
       const reviewData = {
         review: this.rating,
         description: this.comment,
         userId: userid, // Ejemplo de incluir el ID del negocio
       };
       try {
-        await api.post(`/api/businesses/${this.business.id}/reviews`, reviewData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        await api.post(
+          `/api/businesses/${this.business.id}/reviews`,
+          reviewData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
       } catch (error) {
         console.error(error);
       }

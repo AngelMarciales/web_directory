@@ -4,7 +4,7 @@
     <div class="main-content grid grid-cols-12 auto-rows-auto gap-4">
       <div class="col-span-2 row-span-1">
         <PrincipalButton
-          onclick="modal_review.showModal()"
+          @click="writeReview()"
           buttonText="Escribir reseña"
         />
         <dialog id="modal_review" class="modal" v-if="!isAuthenticated">
@@ -17,8 +17,43 @@
                   ✕
                 </button>
               </Form>
-              <h3 class="text-lg font-bold">Hello!</h3>
-              <p class="py-4">Press ESC key or click on ✕ button to close</p>
+              <div class="grid grid-cols-6 grid-rows-auto gap-4">
+                <div class="col-span-6">
+                  <h3 class="title4 font-bold">
+                    Bienvenido, registrate para continuar
+                  </h3>
+                </div>
+                <div class="col-span-6 row-start-2">
+                  <label class="form-control w-full">
+                    <div class="label">
+                      <span class="label-text">Correo electronico</span>
+                    </div>
+                    <Field
+                      v-model="email"
+                      type="email"
+                      name="email"
+                      placeholder="Escriba su correo electronico"
+                      class="input input-bordered w-full"
+                    />
+                    <ErrorMessage name="email"></ErrorMessage>
+                  </label>
+                </div>
+                <div class="col-span-3 row-start-3">
+                  <PrincipalButton
+                    class="w-full"
+                    buttonText="Registrarse"
+                    @click="createUser()"
+                  />
+                </div>
+                <div class="col-span-3 col-start-4 row-start-3">
+                  <Form>
+                    <PrincipalButton
+                      class="btn-cancel w-full"
+                      buttonText="Cancelar"
+                    />
+                  </Form>
+                </div>
+              </div>
             </Form>
           </div>
         </dialog>
@@ -38,8 +73,8 @@
       <div class="col-span-8 row-span-1">
         <BusinessQualification :business="business" />
       </div>
-      <div class="col-span-8 row-span-1">
-        <QualifityCard :business="business" />
+      <div id="writeReview" class="col-span-8 row-span-1">
+        <QualifityCard :business="business"  @open-modal="openModal"/>
       </div>
       <div class="col-span-8 row-span-1">
         <ReviewCardList :business="business" />
@@ -78,6 +113,7 @@ export default {
   },
   data() {
     return {
+      email: "",
       useUserStore,
       useBusinessStore,
       isAuthenticated: false,
@@ -92,7 +128,6 @@ export default {
     this.useUserStore = useUserStore();
     this.useBusinessStore = useBusinessStore();
     this.isAuthenticated = this.useUserStore.isAuthenticated;
-
     this.businessid = parseInt(this.$route.params.businessId, 10);
     this.fetchBusinesses();
   },
@@ -115,6 +150,41 @@ export default {
         } else {
           console.log("Error al obtener el negocio");
         }
+      }
+    },
+    writeReview(){
+        if (this.useUserStore.isAuthenticated == true) {
+          const section = document.getElementById('writeReview');
+            section.scrollIntoView({ behavior: 'smooth' });
+          console.log("holaaa")
+        } else {
+          this.openModal("modal_review");
+        }
+    },
+    createUser() {
+      try {
+          const data = {
+            email: this.email,
+          };
+          const response = this.useUserStore.createUser(data);
+          console.log(response.data);
+      } catch (error) {}
+    },
+    openModal(id) {
+      const modal = document.getElementById(id);
+      console.log(modal);
+      if (modal) {
+        modal.showModal();
+      } else {
+        console.error(`Modal con id ${id} no encontrado.`);
+      }
+    },
+    closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.close();
+      } else {
+        console.error(`Modal con id ${id} no encontrado.`);
       }
     },
   },
