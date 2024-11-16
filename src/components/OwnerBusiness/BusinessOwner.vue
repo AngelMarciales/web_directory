@@ -9,7 +9,11 @@
             tabindex="0"
             class="dropdown-content menu bg-base-100 rounded-box z-[1] absolute right-2 top-2 shadow"
           >
-            <li><a @click="openModal(`edit_event_${id}`)">Editar</a></li>
+            <li>
+              <a @click="openModal(`edit_description_${business.id}`)"
+                >Editar</a
+              >
+            </li>
           </ul>
         </div>
         <p class="text">{{ business.description }}</p>
@@ -31,6 +35,58 @@
       </div>
     </div>
   </main>
+
+  <dialog :id="`edit_description_${business.id}`" class="modal">
+    <div class="modal-box w-11/12 max-w-5xl">
+      <Form :validation-schema="schema" method="dialog">
+        <Form method="dialog">
+          <button
+            class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+          >
+            ✕
+          </button>
+        </Form>
+        <div class="grid grid-cols-6 grid-rows-auto gap-4">
+          <div class="col-span-6">
+            <h3 class="title4 font-bold">Editar descripción</h3>
+          </div>
+
+          <div class="col-span-6 row-start-3">
+            <label class="form-control w-full">
+              <div class="label">
+                <span class="label-text">Descripción: </span>
+              </div>
+              <Field
+                v-model="description"
+                name="name"
+                type="text"
+                class="input input-bordered w-full"
+                placeholder="Escriba la descrpción de su negocio"
+                as="textarea"
+              />
+              <ErrorMessage name="name"></ErrorMessage>
+            </label>
+          </div>
+
+          <div class="col-span-3 row-start-6">
+            <PrincipalButton
+              @click="updateDescription(`edit_description_${business.id}`)"
+              class="w-full"
+              buttonText="Aceptar"
+            />
+          </div>
+          <div class="col-span-3 col-start-4 row-start-6">
+            <Form method="dialog">
+              <PrincipalButton
+                class="btn-cancel w-full"
+                buttonText="Cancelar"
+              />
+            </Form>
+          </div>
+        </div>
+      </Form>
+    </div>
+  </dialog>
 </template>
 
 <script>
@@ -71,6 +127,16 @@ export default {
       currentIndex: 0,
     };
   },
+  computed: {
+    description: {
+      get() {
+        return this.business?.description || "";
+      },
+      set(value) {
+        this.business.description = value;
+      },
+    },
+  },
   mounted() {
     this.useUserStore = useUserStore();
     this.useBusinessStore = useBusinessStore();
@@ -101,6 +167,44 @@ export default {
         } else {
           console.log("Error al obtener el negocio");
         }
+      }
+    },
+    openModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.showModal();
+      } else {
+        console.error(`Modal con id ${id} no encontrado.`);
+      }
+    },
+    closeModal(id) {
+      const modal = document.getElementById(id);
+      if (modal) {
+        modal.close();
+      } else {
+        console.error(`Modal con id ${id} no encontrado.`);
+      }
+    },
+    async updateDescription(id) {
+      try {
+        const newBusiness = {
+          name: this.business?.name,
+          rut: this.business.rut,
+          commercialRegistration: this.business.commercialRegistration,
+          registrationDate: this.business.registrationDate,
+          legalRepresentative: this.business.legalRepresentative,
+          address: this.business.address,
+          phoneNumber: this.business.phoneNumber,
+          website: this.business.website,
+          description: this.description,
+          status: this.business.status,
+          typeBusinessId: this.business.typeBusiness.id,
+          email: null,
+        };
+        await this.useBusinessStore.updateBusiness(this.business.id, newBusiness);
+        this.closeModal(id);
+      } catch (error) {
+        console.error("Error al actualizar la descripción:", error);
       }
     },
   },

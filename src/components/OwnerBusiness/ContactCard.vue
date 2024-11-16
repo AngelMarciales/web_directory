@@ -188,7 +188,6 @@ export default {
     },
 
     async updateContact(id) {
-      console.log(this.business.id);
       const newBusiness = {
         name: this.business?.name,
         rut: this.business.rut,
