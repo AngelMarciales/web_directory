@@ -95,4 +95,8 @@ export default {
   object-fit: contain;
   align-content: center;
 }
+
+.btn-cancel {
+  background: var(--primary2);
+}
 </style>

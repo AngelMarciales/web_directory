@@ -233,4 +233,8 @@ export default {
 .btn-buttons.selected {
   background-color: var(--secondary1); /* Cambia por el color deseado */
 }
+
+.btn-cancel {
+  background: var(--primary2);
+}
 </style>
