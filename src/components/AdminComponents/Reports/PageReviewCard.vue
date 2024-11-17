@@ -5,7 +5,6 @@
           <h2 class="font-bold text-sm title3 h-8 overflow-hidden">
             {{ review.user.username }}
           </h2>
-          <h2 class="text-sm title5 overflow-hidden">{{ review.review }} ☆</h2>
           <p class="text text-sm max-h-24 overflow-hidden">
             {{ review.description }}
           </p>
