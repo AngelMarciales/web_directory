@@ -12,7 +12,6 @@ export const useUserStore = defineStore("user", () => {
   async function login(user) {
     try {
       const response = await api.post("/api/users/login", user);
-      console.log(response);
       role.value = response.data.typeUser;
       token.value = response.data.jwt;
       userId.value = response.data.userId;

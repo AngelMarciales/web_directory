@@ -198,7 +198,6 @@ export const useBusinessStore = defineStore("businessStore", {
           },
         });
         this.getEnabled();
-        console.log("Negocio eliminado con éxito");
       } catch (error) {
         console.error("Error al eliminar el negocio:", error);
       }
@@ -218,7 +217,6 @@ export const useBusinessStore = defineStore("businessStore", {
           }
         );
         this.getEnabled();
-        console.log("Negocio validado con éxito");
       } catch (error) {
         console.error("Error al validar el negocio:", error);
       }
@@ -238,7 +236,7 @@ export const useBusinessStore = defineStore("businessStore", {
           }
         );
         this.getEnabled();
-        console.log("Ubicación del negocio actualizada con éxito");
+        alert("Ubicación del negocio actualizada con éxito");
       } catch (error) {
         console.error("Error al actualizar la ubicación del negocio:", error);
       }

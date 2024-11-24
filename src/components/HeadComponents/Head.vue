@@ -103,6 +103,9 @@
                   </label>
                 </div>
                 <div class="col-span-6 row-start-5">
+                  <span class="label-text title5"
+                    >Categotia de negocio: (Obligatorio):</span
+                  >
                   <select
                     class="select select-bordered w-full"
                     v-model="business.typeBusinessId"
@@ -211,6 +214,7 @@
                         términos.</span
                       >
                       <Field
+                        v-model="check"
                         name="check"
                         type="checkbox"
                         checked="checked"
@@ -262,6 +266,7 @@ export default {
       useTypeStore,
       schema,
       selectedFile: null,
+      check: true,
       categories: [],
       business: {
         name: "",
@@ -308,15 +313,20 @@ export default {
     async sendRequest() {
       try {
         if (!this.selectedFile) {
-          this.message = "Por favor selecciona un archivo.";
-          this.openModal("defaultmodal");
+          alert("Por favor seleccione un archivo");
           return;
         }
         const formData = new FormData();
-        formData.append("document", this.selectedFile);
+        formData.append("file", this.selectedFile);
         const response = await this.useBusinessStore.addFile(formData);
-        this.business.rut = response.data;
+        if (this.check) {
+          alert("Por favor acepte los terminos y condiciones");
+          return;
+        }
+        this.business.rut = response;
         await this.useBusinessStore.addBusiness(this.business);
+        const modal = document.getElementById("my_modal_3");
+        modal.close();
       } catch (error) {
         alert("Error al enviar solicitud:\n Revise el valor de los campos");
       }

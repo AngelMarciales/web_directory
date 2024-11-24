@@ -81,7 +81,6 @@ export default {
         console.error("Error al obtener negocios:", error);
       }
     },
-    // Método para cambiar a la página seleccionada
     goToPage(page) {
       if (page < 1 || page > this.totalPages) return; // Prevenir ir a páginas fuera de rango
       this.currentPage = page;

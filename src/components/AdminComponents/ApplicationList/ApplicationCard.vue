@@ -90,6 +90,14 @@
                     <span class="label-text title5"
                       >Registro unico tributario (RUT):</span
                     >
+                    <a
+                      v-if="business.rut"
+                      :href="business.rut"
+                      target="_blank"
+                      class="text-blue-600 underline"
+                    >
+                      Ver RUT
+                    </a>
                   </div>
                 </div>
               </div>
@@ -130,24 +138,13 @@
                 class="w-full"
                 buttonText="Aceptar solicitud"
               />
-
-              <dialog id="modalapplication" class="modal">
-                <div class="modal-box">
-                  <h1 class="title3">¡Aviso!</h1>
-                  <p class="py-4">{{ message }}</p>
-                  <div class="modal-action">
-                    <form method="dialog">
-                      <PrincipalButton buttonText="Aceptar" />
-                    </form>
-                  </div>
-                </div>
-              </dialog>
             </div>
             <div class="col-span-3 col-start-4 row-start-9">
               <form method="dialog">
                 <PrincipalButton
+                  @click="deleteBusiness()"
                   class="btn-cancel w-full"
-                  buttonText="Cancelar"
+                  buttonText="Rechazar Solicitud"
                 />
               </form>
             </div>
@@ -193,8 +190,19 @@ export default {
     sendRequest() {
       try {
         this.useBusinessStore.validateBusiness(this.business.id);
+        alert("Negocio validado con éxito");
+        window.location.reload();
       } catch (error) {
-        console.log(error)
+        console.log(error);
+      }
+    },
+    async deleteBusiness() {
+      try {
+        this.useBusinessStore.deleteBusiness(this.business.id);
+        alert("Solicitud Rechazada");
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
       }
     },
   },

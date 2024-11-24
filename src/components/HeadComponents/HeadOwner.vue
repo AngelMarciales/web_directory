@@ -57,13 +57,13 @@
                       </span>
                     </div>
                     <Field
-                      name="name"
+                      name="businessName"
                       type="text"
                       v-model="business.name"
                       placeholder="Escribe el nombre de tu negocio"
                       class="input input-bordered w-full"
                     />
-                    <ErrorMessage name="name"></ErrorMessage>
+                    <ErrorMessage name="businessName"></ErrorMessage>
                   </label>
                 </div>
                 <div class="col-span-3 row-start-4">
@@ -103,6 +103,9 @@
                   </label>
                 </div>
                 <div class="col-span-6 row-start-5">
+                  <span class="label-text title5"
+                    >Categotia de negocio: (Obligatorio):</span
+                  >
                   <select
                     class="select select-bordered w-full"
                     v-model="business.typeBusinessId"
@@ -155,6 +158,7 @@
                     <div class="col-start-5 row-start-2">
                       <label>
                         <Field
+                          @change="handleFileUpload"
                           name="file"
                           type="file"
                           class="file-input file-input-bordered w-full max-w-xs"
@@ -210,6 +214,7 @@
                         términos.</span
                       >
                       <Field
+                        v-model="check"
                         name="check"
                         type="checkbox"
                         checked="checked"
@@ -222,23 +227,9 @@
                 <div class="col-span-3 row-start-9">
                   <PrincipalButton
                     @click="sendRequest()"
-                    onclick="modalapplication.showModal()"
                     class="w-full"
                     buttonText="Enviar solicitud"
                   />
-                  <dialog id="modalapplication" class="modal">
-                    <div class="modal-box">
-                      <h1 class="title3">¡Aviso!</h1>
-                      <p class="py-4">
-                        {{ message }}
-                      </p>
-                      <div class="modal-action">
-                        <Form method="dialog">
-                          <PrincipalButton buttonText="Aceptar" />
-                        </Form>
-                      </div>
-                    </div>
-                  </dialog>
                 </div>
                 <div class="col-span-3 col-start-4 row-start-9">
                   <Form method="dialog">
@@ -274,11 +265,12 @@ export default {
       useBusinessStore,
       useTypeStore,
       schema,
-      message: "",
+      selectedFile: null,
+      check: true,
       categories: [],
       business: {
         name: "",
-        rut: "12345",
+        rut: null,
         commercialRegistration: "",
         registrationDate: "",
         legalRepresentative: "",
@@ -307,15 +299,36 @@ export default {
       this.$router.push({ name: "Home" });
     },
 
+    handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.selectedFile = file;
+        console.log("Archivo seleccionado:", file.name); // Depuración
+      } else {
+        alert("Seleccione un archivo");
+        console.log("No se seleccionó ningún archivo.");
+      }
+    },
+
     async sendRequest() {
       try {
+        if (!this.selectedFile) {
+          alert("Por favor seleccione un archivo");
+          return;
+        }
+        const formData = new FormData();
+        formData.append("file", this.selectedFile);
+        const response = await this.useBusinessStore.addFile(formData);
+        if (this.check) {
+          alert("Por favor acepte los terminos y condiciones");
+          return;
+        }
+        this.business.rut = response;
         await this.useBusinessStore.addBusiness(this.business);
-        this.message =
-          "¡Se  le enviara un correo electronico con los datos necesarios para el inicio de sesión.!" +
-          response.data;
+        const modal = document.getElementById("my_modal_3");
+        modal.close();
       } catch (error) {
-        this.message =
-          "Error al enviar el formulario: revise el valor de los campos";
+        alert("Error al enviar solicitud:\n Revise el valor de los campos");
       }
     },
 
@@ -324,7 +337,7 @@ export default {
         await this.useTypeStore.getTypes();
         this.categories = this.useTypeStore.allTypes;
       } catch (error) {
-        console.error("Error al obtener categorías:", error);
+        console.error("Error al obtener categorías:");
       }
     },
   },
