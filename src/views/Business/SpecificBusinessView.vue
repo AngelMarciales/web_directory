@@ -68,7 +68,7 @@
         <LocationSchedulesCard :business="business" />
       </div>
       <div class="col-span-8 row-span-1">
-        <BusinessQualification :business="business" />
+        <BusinessQualification :key="business.id" :business="business" />
       </div>
       <div id="writeReview" class="col-span-8 row-span-1">
         <QualifityCard :business="business" @open-modal="openModal" />

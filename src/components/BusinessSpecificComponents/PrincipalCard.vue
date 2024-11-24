@@ -48,6 +48,12 @@ import PrincipalButton from "../GeneralComponents/PrincipalButton.vue";
 import { useBusinessStore } from "../../stores/businessStore";
 
 export default {
+  props: {
+    business: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     return {
       useBusinessStore,
@@ -62,19 +68,11 @@ export default {
   methods: {
     async getReviewAverage() {
       try {
-        await this.useBusinessStore.getAverageReview(this.business.id);
-        this.useBusinessStore.getEnabled();
-
+        await this.useBusinessStore.getAverageReview(this.business?.id);
         this.reviewAverage = this.useBusinessStore.AverageReview;
       } catch (error) {
         console.log(error);
       }
-    },
-  },
-  props: {
-    business: {
-      type: Object,
-      required: true,
     },
   },
   components: {
