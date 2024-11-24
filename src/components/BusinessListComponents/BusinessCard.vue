@@ -52,6 +52,7 @@ export default {
   methods: {
     async getAverageReview() {
       try {
+        console.log("Aqui esta el error")
         await this.useBusinessStore.getAverageReview(this.business?.id);
         this.averageReview = this.useBusinessStore.AverageReview;
       } catch (error) {

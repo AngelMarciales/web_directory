@@ -60,7 +60,7 @@ export default {
   methods: {
     async fetchBusinesses() {
       try {
-        await this.useBusinessStore.getEnabled(); 
+        await this.useBusinessStore.getEnabled();
         await this.useBusinessStore.getDisabled();
       } catch (error) {
         console.error("Error al obtener eventos:", error);

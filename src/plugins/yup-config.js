@@ -16,4 +16,7 @@ setLocale({
     max: 'El valor debe ser menor o igual a ${max}.',
     integer: 'El valor debe ser un número entero.',
   },
+  boolean: {
+    isTrue: 'Debe aceptar los términos y condiciones'
+  }
 });

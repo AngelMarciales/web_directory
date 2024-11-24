@@ -159,14 +159,14 @@ export const useBusinessStore = defineStore("businessStore", {
 
     // Agregar un nuevo evento
     async addBusiness(newBusiness) {
-      const token = this.getToken();
-      if (!token) return; // Si no hay token, no hacemos la petición
       try {
         const response = await api.post("/api/businesses", newBusiness);
         this.getEnabled();
-        console.log("Negocio agregado con éxito");
+        alert(
+          "Solicitud enviada correctamente\n ¡Se  le enviara un correo electronico con los datos necesarios para el inicio de sesión.!"
+        );
       } catch (error) {
-        console.error("Error al agregar el negocio:", error);
+        alert("Error al enviar solicitud:\n" + error.response.data);
       }
     },
 
@@ -430,6 +430,15 @@ export const useBusinessStore = defineStore("businessStore", {
         console.log("Reseña eliminada con éxito");
       } catch (error) {
         console.error("Error al eliminar la reseña:", error);
+      }
+    },
+
+    async addFile(formData) {
+      try {
+        const response = await api.post("/api/files/upload", formData);
+        return response.data;
+      } catch (error) {
+        alert("Error al subir el archivo: \n" + error.response.data);
       }
     },
   },

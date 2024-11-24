@@ -23,8 +23,7 @@ export const useUserStore = defineStore("user", () => {
       localStorage.setItem("isAuthenticated", true);
       console.log("Login exitoso:");
     } catch (error) {
-      console.error("Error al iniciar sesión.", error.response);
-      console.log(userId)
+      alert("Error al iniciar sesión. \n" + error.response.data)
     }
   }
 
@@ -33,7 +32,7 @@ export const useUserStore = defineStore("user", () => {
       const response = await api.post("/api/users/tourist", email);
       return response.data;
     } catch (error) {
-      console.log("error al crear ususario", error);
+      alert("Error al crear usuario. \n" + error.response.data)
       return error;
     }
   }
@@ -43,11 +42,13 @@ export const useUserStore = defineStore("user", () => {
     isAuthenticated.value = false;
     role.value = null;
     token.value = null;
+    userId.value = null;
 
     // Limpiar localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("userId");
   }
 
   function loadUserData() {

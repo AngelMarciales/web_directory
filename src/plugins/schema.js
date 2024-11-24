@@ -2,6 +2,7 @@ import * as yup from "yup";
 
 export const schema = yup.object().shape({
   name: yup.string().required(),
+  businessName: yup.string().required(),
   password: yup.string().required(),
   phone: yup.number().required().max(10),
   address: yup.string().required(),

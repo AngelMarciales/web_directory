@@ -98,6 +98,7 @@ export default {
   methods: {
     async getReviewAverage() {
       try {
+        console.log(this.business.id)
         await this.useBusinessStore.getAverageReview(this.business?.id);
         this.useBusinessStore.getEnabled();
 

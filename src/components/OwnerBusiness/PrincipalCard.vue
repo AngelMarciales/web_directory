@@ -65,7 +65,6 @@ export default {
       try {
         await this.useBusinessStore.getAverageReview(this.business?.id);
         this.useBusinessStore.getEnabled();
-
         this.reviewAverage = this.useBusinessStore.AverageReview;
       } catch (error) {
         console.log(error);
