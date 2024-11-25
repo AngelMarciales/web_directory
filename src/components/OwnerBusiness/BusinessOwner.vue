@@ -25,7 +25,7 @@
         <ContactCard :business="business" />
       </div>
       <div class="col-span-8 row-span-1">
-        <LocationSchedulesCard :business="business" :id="businessid" />
+        <LocationSchedulesCard :business="business" />
       </div>
       <div class="col-span-8 row-span-1">
         <ReviewCardList :business="business" />
@@ -133,10 +133,10 @@ export default {
     },
   },
   mounted() {
+    this.businessid = parseInt(this.$route.params.businessOwner, 10);
     this.useUserStore = useUserStore();
     this.useBusinessStore = useBusinessStore();
     this.isAuthenticated = this.useUserStore.isAuthenticated;
-    this.businessid = parseInt(this.$route.params.businessOwner, 10);
     this.useBusinessStore.getEnabled();
     this.fetchBusinesses();
   },
@@ -154,8 +154,6 @@ export default {
     },
     getBusiness() {
       for (let business of this.businesses) {
-        console.log(this.businesses);
-        console.log(this.businessid);
         if (business.id === this.businessid) {
           this.business = business;
           return;

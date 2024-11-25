@@ -87,19 +87,14 @@
             </label>
           </div>
 
-          <div class="grid grid-cols-6 grid-rows-auto row-start-5 gap-4 w-full">
+          <div class="row-start-5 w-full">
             <label>
               <input
                 @change="handleFileUpload"
                 type="file"
-                class="file-input file-input-bordered col-start-1"
+                class="file-input file-input-bordered"
               />
             </label>
-            <PrincipalButton
-              @click="submitForm()"
-              class="col-start-6"
-              buttonText="Cambiar..."
-            />
           </div>
 
           <div class="col-span-3 row-start-6">
@@ -138,8 +133,8 @@ export default {
       useBusinessStore,
       name: "",
       description: "",
-      price: "",
-      image: "",
+      price: 0,
+      image: "https://i.ibb.co/nnc7CkR/default-image.jpg",
       selectedFile: null,
     };
   },
@@ -161,6 +156,21 @@ export default {
   },
   methods: {
     async addContent() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Token de autorización no encontrado");
+        return null;
+      }
+      if (this.selectedFile != null) {
+        const formData = new FormData();
+        formData.append("image", this.selectedFile);
+        const response = await api.post("/api/images/upload", formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        this.image = response.data;
+      }
       const updatedData = {
         name: this.name,
         description: this.description,
@@ -168,11 +178,12 @@ export default {
         imageUrl: this.image,
       };
       try {
-        await this.useBusinessStore.addContent(this.business.id, updatedData); // Llamada para agregar el evento
-        document.getElementById("add_content").close(); // Cerrar el modal
-        this.useBusinessStore.getEnabled(); // Recargar la lista de eventos
+        await this.useBusinessStore.addContent(this.business.id, updatedData);
+        document.getElementById("add_content").close();
+        this.useBusinessStore.getEnabled();
+        window.location.reload();
       } catch (error) {
-        console.error("Error al crear evento:", error);
+        console.error("Error al crear contenido adicional:", error);
       }
     },
     handleFileUpload(event) {
@@ -185,28 +196,6 @@ export default {
       }
     },
 
-    // Método para enviar la petición POST
-    async submitForm() {
-      if (!this.selectedFile) {
-        this.message = "Por favor selecciona un archivo.";
-        this.openModal("defaultmodal");
-        return;
-      }
-      const token = localStorage.getItem("token");
-      if (!token) {
-        console.error("Token de autorización no encontrado");
-        return null;
-      }
-
-      const formData = new FormData();
-      formData.append("image", this.selectedFile);
-
-      await api.post("/api/images/upload", formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    },
     openModal(id) {
       const modal = document.getElementById(id);
       if (modal) {

@@ -315,7 +315,7 @@ export const useBusinessStore = defineStore("businessStore", {
 
     async addContent(businessId, newContent) {
       const token = this.getToken();
-      if (!token) return; // Si no hay token, no hacemos la petición
+      if (!token) return;
       try {
         const response = await api.post(
           `/api/businesses/${businessId}/contents`,
@@ -327,16 +327,16 @@ export const useBusinessStore = defineStore("businessStore", {
           }
         );
         this.getEnabled();
-        console.log("Contenido agregado con éxito al negocio");
+        alert("Contenido agregado con éxito al negocio");
       } catch (error) {
-        console.error("Error al agregar contenido al negocio:", error);
+        alert("Error al agregar contenido al negocio:", error.response.data);
       }
     },
 
     // Actualizar un evento existente
     async updateContent(businessId, updatedContent, contentId) {
       const token = this.getToken();
-      if (!token) return; // Si no hay token, no hacemos la petición
+      if (!token) return;
       try {
         await api.put(
           `/api/businesses/${businessId}/contents/${contentId}`,
@@ -348,9 +348,9 @@ export const useBusinessStore = defineStore("businessStore", {
           }
         );
         this.getEnabled();
-        console.log("Contenido actualizado con éxito en el negocio");
+        alert("Contenido actualizado con éxito en el negocio");
       } catch (error) {
-        console.error("Error al actualizar el contenido del negocio:", error);
+        alert("Error al actualizar el contenido del negocio", error.response.data);
       }
     },
 

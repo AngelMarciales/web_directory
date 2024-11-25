@@ -167,6 +167,7 @@ export default {
             Authorization: `Bearer ${token}`,
           },
         });
+        alert("Contraseña cambiada con exito");
         this.closeModal("reset_password_modal_admin");
       } catch (error) {
         console.error(error);

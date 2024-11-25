@@ -198,6 +198,7 @@ export default {
           email: this.email,
         };
         await api.put("/api/users/reset-password", data);
+        alert("La nueva contraseña fue enviada a su correo");
         this.closeModal("password_recovey_modal");
       } catch (error) {
         console.error(error);
@@ -208,7 +209,6 @@ export default {
       if (formIsValid) {
         this.login();
       } else {
-        // Si no es válido, muestra un mensaje o maneja el error
         this.message = "Formulario inválido";
         console.log("Formulario inválido");
       }

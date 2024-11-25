@@ -12,7 +12,7 @@
           tabindex="0"
           class="dropdown-content menu bg-base-100 rounded-box absolute top-2 right-2 z-10 shadow"
         >
-          <li><a @click="openModal(`edit_location_${id}`)">Editar</a></li>
+          <li><a @click="openModal(`edit_location_${business.id}`)">Editar</a></li>
         </ul>
       </div>
       <LocationCard :business="business" />
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <dialog :id="`edit_location_${id}`" class="modal">
+  <dialog :id="`edit_location_${business.id}`" class="modal">
     <div class="modal-box w-11/12 max-w-5xl">
       <Form :validation-schema="schema" method="dialog">
         <Form method="dialog">
@@ -70,7 +70,7 @@
           </div>
           <div class="col-span-3 row-start-6">
             <PrincipalButton
-              @click="updateLocation(`edit_location_${id}`)"
+              @click="updateLocation(`edit_location_${business.id}`)"
               class="w-full"
               buttonText="Aceptar"
             />
@@ -103,10 +103,6 @@ export default {
       type: Object,
       required: true,
     },
-    id: {
-      type: Number,
-      required: true,
-    }
   },
   components: {
     LocationCard,
@@ -161,7 +157,7 @@ export default {
     },
     async updateLocation(id) {
       try {
-        await this.useBusinessStore.updateLocation(this.id, {
+        await this.useBusinessStore.updateLocation(this.business?.id, {
           latitude: this.latitude,
           longitude: this.longitude,
         });
