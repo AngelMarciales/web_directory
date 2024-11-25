@@ -6,16 +6,16 @@
     </div>
   </div>
 
-  <div class="grid grid-cols-4 grid-rows-auto gap-4 border-2">
+  <div class="grid grid-cols-4 grid-rows-auto gap-4 border-2 rounded-lg shadow-md">
     <div class="col-span-2 title4">Negocios</div>
-    <div class="col-start-2 row-start-2 title4" style="font-size: 1.1rem;">Total de visitas a negocios:</div>
-    <div class="col-start-2 row-start-3 title4" style="font-size: 1.1rem;">
+    <div class="col-start-2 row-start-2 title4" style="font-size: 1rem;">Total de visitas a negocios:</div>
+    <div class="col-start-2 row-start-3 title4" style="font-size: 1rem;">
       Total de visitas a negocios del ultimo mes:
     </div>
-    <div class="col-start-2 row-start-4 title4" style="font-size: 1.1rem;">
+    <div class="col-start-2 row-start-4 title4" style="font-size: 1rem;">
       Total de visitas a negocios del ultimo año:
     </div>
-    <div class="col-start-2 row-start-5 title4" style="font-size: 1.1rem;">Categoria mas buscada:</div>
+    <div class="col-start-2 row-start-5 title4" style="font-size: 1rem;">Categoria mas buscada:</div>
     <div class="col-span-2 col-start-3 row-start-2">
       {{ report.totalBusinessVisits }}
     </div>
@@ -29,16 +29,15 @@
       {{ report.mostPopularTypeBusiness }}
     </div>
   </div>
-  <br />
-  <div class="grid grid-cols-4 grid-rows-4 gap-4 border-2">
+  <div class="grid grid-cols-4 grid-rows-4 gap-4 border-2 rounded-lg shadow-md">
     <div class="col-span-2 title4">Eventos</div>
-    <div class="col-start-2 row-start-2 title4" style="font-size: 1.1rem;">
+    <div class="col-start-2 row-start-2 title4" style="font-size: 1rem;">
       Total de visitas a sección de eventos:
     </div>
-    <div class="col-start-2 row-start-3 title4" style="font-size: 1.1rem;">
+    <div class="col-start-2 row-start-3 title4" style="font-size: 1rem;">
       Total de visitas a sección de ventos del ultimo mes:
     </div>
-    <div class="col-start-2 row-start-4 title4" style="font-size: 1.1rem;">
+    <div class="col-start-2 row-start-4 title4" style="font-size: 1rem;">
       Total de visitas a sección de ventos del ultimo año:
     </div>
     <div class="col-span-2 col-start-3 row-start-2">
@@ -51,16 +50,15 @@
       {{ report.lastYearEventVisits }}
     </div>
   </div>
-  <br />
-  <div class="grid grid-cols-4 grid-rows-4 gap-4 border-2">
+  <div class="grid grid-cols-4 grid-rows-4 gap-4 border-2 rounded-lg shadow-md">
     <div class="col-span-2 title4">Sitios Turisticos</div>
-    <div class="col-start-2 row-start-2 title4" style="font-size: 1.1rem;">
+    <div class="col-start-2 row-start-2 title4" style="font-size: 1rem;">
       Total de visitas a sección de sitios turisticos:
     </div>
-    <div class="col-start-2 row-start-3 title4" style="font-size: 1.1rem;">
+    <div class="col-start-2 row-start-3 title4" style="font-size: 1rem;">
       Total de visitas a sección de sitios turisticos del ultimo mes:
     </div>
-    <div class="col-start-2 row-start-4 title4" style="font-size: 1.1rem;">
+    <div class="col-start-2 row-start-4 title4" style="font-size: 1rem;">
       Total de visitas a sección de sitios turisticos del ultimo año:
     </div>
     <div class="col-span-2 col-start-3 row-start-2">

@@ -28,9 +28,6 @@
         <LocationSchedulesCard :business="business" :id="businessid" />
       </div>
       <div class="col-span-8 row-span-1">
-        <BusinessQualification :business="business" />
-      </div>
-      <div class="col-span-8 row-span-1">
         <ReviewCardList :business="business" />
       </div>
     </div>
@@ -94,7 +91,6 @@ import PrincipalCard from "./PrincipalCard.vue";
 import ContactCard from "./ContactCard.vue";
 import AditionalContentsCard from "./AditionalContentsCard.vue";
 import LocationSchedulesCard from "./LocationSchedulesCard.vue";
-import BusinessQualification from "./BusinessQualification.vue";
 import ReviewCardList from "./ReviewCardList.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { schema } from "../../plugins/schema.js";
@@ -108,7 +104,6 @@ export default {
     ContactCard,
     AditionalContentsCard,
     LocationSchedulesCard,
-    BusinessQualification,
     ReviewCardList,
     Field,
     Form,

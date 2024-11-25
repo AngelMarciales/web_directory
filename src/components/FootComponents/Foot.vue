@@ -5,12 +5,13 @@
         <span class="label-text title4">¡Cuentanos tu experiencia!</span>
       </div>
       <div class="grid grid-cols-8 auto-rows-auto gap-1">
-        <input
-        v-model="comment"
+        <textarea
+          v-model="comment"
           type="text"
           placeholder="Escribe tu experiencia de visitar Jenesano"
-          class="input input-bordered w-full max-w-xs col-span-8"
-        />
+          class="textarea textarea-bordered w-full max-w-xs col-span-8 h-16"
+        >
+        </textarea>
         <PrincipalButton
           class="col-start-3 row-start-2"
           buttonText="Enviar"
@@ -222,7 +223,7 @@ export default {
             Authorization: `Bearer ${token}`,
           },
         });
-        alert("Gracias por dejarnos tu opinion")
+        alert("Gracias por dejarnos tu opinion");
         window.location.reload();
       } catch (error) {
         console.error(error);
