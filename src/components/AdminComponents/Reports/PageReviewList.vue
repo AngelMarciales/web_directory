@@ -38,8 +38,9 @@ export default {
         const token = localStorage.getItem("token");
         if (!token) {
           console.error("Token de autorización no encontrado");
-          return; // Detén la ejecución si no hay token
+          return;
         }
+        console.log(this.useReviewStore.allWebsiteReviews)
         this.reviews = this.useReviewStore.allWebsiteReviews;
       } catch (error) {
         console.error("Error al obtener el reporte:", error);

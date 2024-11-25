@@ -13,7 +13,7 @@
     </div>
 
     <!-- Modal -->
-    <dialog id="application_admin_modal" class="modal">
+    <dialog :id="'application_admin_modal_' + business.id" class="modal">
       <div class="modal-box w-11/12 max-w-5xl">
         <form method="dialog">
           <button
@@ -180,11 +180,21 @@ export default {
   },
   methods: {
     showModal() {
-      const modal = document.getElementById("application_admin_modal");
-      modal.showModal(); // Mostrar el modal
+      const modal = document.getElementById(
+        `application_admin_modal_${this.business.id}`
+      );
+      if (modal) {
+        modal.showModal();
+      } else {
+        console.error(
+          `Modal con id application_admin_modal_${this.business.id} no encontrado`
+        );
+      }
     },
     closeModal() {
-      const modal = document.getElementById("application_admin_modal");
+      const modal = document.getElementById(
+        `application_admin_modal_${this.business.id}`
+      );
       modal.close(); // Cerrar el modal
     },
     sendRequest() {

@@ -46,6 +46,7 @@ export const useReviewStore = defineStore("reviewStore", {
           headers: { Authorization: `Bearer ${token}` },
         });
         this.websiteReviews = response.data;
+        console.log(this.websiteReviews)
       } catch (error) {
         console.error(
           "No se pudieron cargar las reseñas. Verifique la conexión al servidor.",
@@ -124,7 +125,7 @@ export const useReviewStore = defineStore("reviewStore", {
     },
 
     allWebsiteReviews(state) {
-      return state.businessReviews;
+      return state.websiteReviews;
     },
 
     getById(state) {

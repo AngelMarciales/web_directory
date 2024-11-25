@@ -174,7 +174,7 @@ export const useBusinessStore = defineStore("businessStore", {
     // Actualizar un evento existente
     async updateBusiness(businessId, updatedBusiness) {
       const token = this.getToken();
-      if (!token) return; // Si no hay token, no hacemos la petición
+      if (!token) return;
       try {
         await api.put(`api/businesses/${businessId}`, updatedBusiness, {
           headers: {

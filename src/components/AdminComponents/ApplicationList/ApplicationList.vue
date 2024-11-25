@@ -15,7 +15,6 @@
       </div>
     </div>
 
-    <!-- Controles de paginación -->
     <div class="join mt-4">
       <button
         class="join-item btn"
