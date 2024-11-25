@@ -38,9 +38,9 @@ export const useEventStore = defineStore("eventStore", {
           },
         });
         this.loadEvents();
-        console.log("Evento agregado con éxito");
+        alert("Evento agregado con éxito");
       } catch (error) {
-        console.error("Error al agregar el evento:", error);
+        alert("Error al agregar el evento:", error.response.data);
       }
     },
 
@@ -55,9 +55,9 @@ export const useEventStore = defineStore("eventStore", {
           },
         });
         this.loadEvents();
-        console.log("Evento actualizado con éxito");
+        alert("Evento actualizado con éxito")
       } catch (error) {
-        console.error("Error al actualizar el evento:", error);
+        alert("Error al actualizar el evento:", error.response.data);
       }
     },
 
@@ -72,9 +72,9 @@ export const useEventStore = defineStore("eventStore", {
           },
         });
         this.loadEvents();
-        console.log("Evento eliminado con éxito");
+        alert("Evento eliminado con éxito");
       } catch (error) {
-        console.error("Error al eliminar el evento:", error);
+        alert("Error al eliminar el evento:", error.response.data);
       }
     },
 
@@ -108,6 +108,7 @@ export const useEventStore = defineStore("eventStore", {
           event.images.push({ url: response.data });
         }
         this.loadEvents();
+        alert("La imagen se agregó correctamente al evento.");
       } catch (error) {
         console.error("Error al subir el archivo:", error.response || error);
       }
@@ -124,6 +125,7 @@ export const useEventStore = defineStore("eventStore", {
           },
         });
         this.loadEvents();
+        alert("La imagen se eliminó correctamente del evento.");
       } catch (error) {
         console.error("Error al eliminar imagenes:", error);
       }

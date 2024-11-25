@@ -41,11 +41,11 @@ export const useSiteStore = defineStore("siteStore", {
           headers: { Authorization: `Bearer ${token}` },
         });
         await this.loadSites();
-        console.info("El sitio turístico se agregó correctamente.");
+        alert("El sitio turístico se agregó correctamente.");
       } catch (error) {
-        console.error(
+        alert(
           "Ocurrió un error al intentar agregar el sitio turístico.",
-          error
+          error.response.data
         );
       }
     },
@@ -66,11 +66,11 @@ export const useSiteStore = defineStore("siteStore", {
           }
         );
         await this.loadSites();
-        console.info("El sitio turístico se actualizó correctamente.");
+        alert("El sitio turístico se actualizó correctamente.");
       } catch (error) {
-        console.error(
+        alert(
           "Ocurrió un error al intentar actualizar el sitio turístico.",
-          error
+          error.response.data
         );
       }
     },
@@ -84,11 +84,11 @@ export const useSiteStore = defineStore("siteStore", {
           headers: { Authorization: `Bearer ${token}` },
         });
         await this.loadSites();
-        console.info("El sitio turístico se eliminó correctamente.");
+        alert("El sitio turístico se eliminó correctamente.");
       } catch (error) {
-        console.error(
+        alert(
           "No se pudo eliminar el sitio turístico. Verifique la conexión o permisos.",
-          error
+          error.response.data
         );
       }
     },
@@ -122,7 +122,7 @@ export const useSiteStore = defineStore("siteStore", {
         }
 
         await this.loadSites();
-        console.info("La imagen se agregó correctamente al sitio turístico.");
+        alert("La imagen se agregó correctamente al sitio turístico.");
       } catch (error) {
         console.error(
           "No se pudo agregar la imagen al sitio turístico.",
@@ -143,7 +143,7 @@ export const useSiteStore = defineStore("siteStore", {
           }
         );
         await this.loadSites();
-        console.info("La imagen se eliminó correctamente del sitio turístico.");
+        alert("La imagen se eliminó correctamente del sitio turístico.");
       } catch (error) {
         console.error(
           "No se pudo eliminar la imagen del sitio turístico.",

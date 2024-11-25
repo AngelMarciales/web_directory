@@ -3,7 +3,7 @@ import api from "../config/api"; // Reutilizamos la configuración de Axios
 
 export const useTypeStore = defineStore("typeStore", {
   state: () => ({
-    types: [], // Lista de sitios turísticos
+    types: [],
     type: {},
   }),
 
@@ -20,7 +20,7 @@ export const useTypeStore = defineStore("typeStore", {
       return token;
     },
 
-    // Cargar los sitios desde el servidor
+    // Cargar las categorias desde el servidor
     async getTypes() {
       try {
         const response = await api.get("/api/businesses/types");
@@ -35,7 +35,7 @@ export const useTypeStore = defineStore("typeStore", {
 
     async getTypesById(businessId) {
       const token = this.getToken();
-      if (!token) return; // Si no hay token, no continuamos
+      if (!token) return; 
       try {
         const response = await api.get(`/api/businesses/types/${businessId}`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -50,7 +50,7 @@ export const useTypeStore = defineStore("typeStore", {
       }
     },
 
-    // Agregar un nuevo sitio
+    // Agregar un nueva categoria
     async addType(newType) {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no continuamos
@@ -68,7 +68,7 @@ export const useTypeStore = defineStore("typeStore", {
       }
     },
 
-    // Actualizar un sitio existente
+    // Actualizar una categoria existente
     async updateType(typeId, updatedType) {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no continuamos
@@ -86,7 +86,7 @@ export const useTypeStore = defineStore("typeStore", {
       }
     },
 
-    // Eliminar un sitio
+    // Eliminar una categoria
     async deleteType(typeId) {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no continuamos

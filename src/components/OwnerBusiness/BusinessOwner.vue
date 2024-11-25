@@ -146,7 +146,6 @@ export default {
       try {
         await this.useBusinessStore.getEnabled();
         this.businesses = this.useBusinessStore.allEnabled;
-        console.log(this.businesses);
         this.getBusiness();
       } catch (error) {
         console.error("Error al obtener los negocios:", error);

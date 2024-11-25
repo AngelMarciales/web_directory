@@ -3,7 +3,7 @@ import api from "../config/api"; // Reutilizamos la configuración de Axios
 
 export const useReviewStore = defineStore("reviewStore", {
   state: () => ({
-    businessReviews: [], // Lista de sitios turísticos
+    businessReviews: [], // Lista de reseñas de negocio
     websiteReviews: [],
     review: {},
   }),
@@ -21,7 +21,7 @@ export const useReviewStore = defineStore("reviewStore", {
       return token;
     },
 
-    // Cargar los sitios desde el servidor
+    // Cargar las reseñas desde el servidor
     async getReviews() {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no continuamos
@@ -40,7 +40,7 @@ export const useReviewStore = defineStore("reviewStore", {
 
     async getWebsite() {
       const token = this.getToken();
-      if (!token) return; // Si no hay token, no continuamos
+      if (!token) return;
       try {
         const response = await api.get("/api/reviews/website", {
           headers: { Authorization: `Bearer ${token}` },
@@ -56,7 +56,7 @@ export const useReviewStore = defineStore("reviewStore", {
 
     async getReviewsById(businessId) {
       const token = this.getToken();
-      if (!token) return; // Si no hay token, no continuamos
+      if (!token) return;
       try {
         const response = await api.get(`/api/reviews/${businessId}`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -68,22 +68,22 @@ export const useReviewStore = defineStore("reviewStore", {
       }
     },
 
-    // Agregar un nuevo sitio
+    // Agregar una nueva reseña
     async addReview(newReview) {
       const token = this.getToken();
-      if (!token) return; // Si no hay token, no continuamos
+      if (!token) return; 
       try {
         await api.post("/api/reviews", newReview, {
           headers: { Authorization: `Bearer ${token}` },
         });
         await this.getTypes();
-        console.info("La reseña se agregó correctamente.");
+        alert("La reseña se agregó correctamente.");
       } catch (error) {
-        console.error("Ocurrió un error al intentar agregar la reseña.", error);
+        alert("Ocurrió un error al intentar agregar la reseña.", error.response.data);
       }
     },
 
-    // Actualizar un sitio existente
+    // Actualizar una reseña existente
     async updateReview(reviewId, updatedReview) {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no continuamos
@@ -92,9 +92,9 @@ export const useReviewStore = defineStore("reviewStore", {
           headers: { Authorization: `Bearer ${token}` },
         });
         await this.getTypes();
-        console.info("La reseña se actualizó correctamente.");
+        alert("La reseña se actualizó correctamente.");
       } catch (error) {
-        console.error("Ocurrió un error al intentar actualizar reseña.", error);
+        alert("Ocurrió un error al intentar actualizar reseña.", error.response.data);
       }
     },
 
@@ -107,7 +107,7 @@ export const useReviewStore = defineStore("reviewStore", {
           headers: { Authorization: `Bearer ${token}` },
         });
         await this.getTypes();
-        console.info("La reseña se eliminó correctamente.");
+        alert("La reseña se eliminó correctamente.");
       } catch (error) {
         console.error(
           "No se pudo eliminar la reseña. Verifique la conexión o permisos.",

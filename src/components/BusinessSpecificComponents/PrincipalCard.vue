@@ -27,10 +27,10 @@
               </button>
             </form>
             <div
-              class="container h-full grid grid-cols-6 grid-rows-auto gap-10"
+              class="container grid grid-cols-1 gap-10 overflow-y-auto max-h-[60vh]"
             >
               <img
-                class="col-span-2 thumbnail-image h-64 w-96"
+                class="col-span-1 thumbnail-image h-64 w-full object-contain"
                 v-for="image in business.images"
                 :key="image.id"
                 :src="image.url"

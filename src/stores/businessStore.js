@@ -7,7 +7,8 @@ export const useBusinessStore = defineStore("businessStore", {
     businessEnabled: [],
     businessDisabled: [],
     businessNonValidate: [],
-    businessById: [],
+    businessById: {},
+    businessByUserId: [],
     businessByType: [],
     businessByReview: [],
     businessAverageReview: 0,
@@ -116,7 +117,7 @@ export const useBusinessStore = defineStore("businessStore", {
             Authorization: `Bearer ${token}`,
           },
         });
-        this.businessById = response.data;
+        this.businessByUserId = response.data;
       } catch (error) {
         console.error("Error al cargar los negocios:", error);
       }
@@ -258,8 +259,8 @@ export const useBusinessStore = defineStore("businessStore", {
       }
     },
 
-    // Agregar una imagen a un evento específico
-    async addImageToEvent(businessId, formData) {
+    // Agregar una imagen a un negocio específico
+    async addImage(businessId, formData) {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no hacemos la petición
       try {
@@ -281,7 +282,7 @@ export const useBusinessStore = defineStore("businessStore", {
             },
           }
         );
-        // Actualiza manualmente el evento en el store sin hacer una nueva carga
+        // Actualiza manualmente el negocio en el store sin hacer una nueva carga
         const business = this.businessEnabled.find(
           (business) => business.id === businessId
         );
@@ -289,13 +290,14 @@ export const useBusinessStore = defineStore("businessStore", {
           business.images.push({ url: response.data });
         }
         this.getEnabled();
+        alert("Imagen agregada con exito");
       } catch (error) {
-        console.error("Error al subir el archivo:", error.response || error);
+        alert("Ha ocurrido un error al intentar agregar la imagen", error.response.data);
       }
     },
 
     // Eliminar una imagen de un evento
-    async removeImageFromEvent(businessId, selectedImage) {
+    async removeImage(businessId, selectedImage) {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no hacemos la petición
       try {
@@ -307,9 +309,10 @@ export const useBusinessStore = defineStore("businessStore", {
             },
           }
         );
+        alert("Imagen eliminada con exito");
         this.getEnabled();
       } catch (error) {
-        console.error("Error al eliminar imágenes del negocio:", error);
+        alert("Error al eliminar imágenes del negocio:", error.response.data);
       }
     },
 
@@ -471,6 +474,10 @@ export const useBusinessStore = defineStore("businessStore", {
      * @returns {Array} Lista de negocios por usuario.
      */
     businessesByUserId(state) {
+      return state.businessByUserId;
+    },
+
+    businessesById(state) {
       return state.businessById;
     },
 
