@@ -243,7 +243,7 @@ export default {
       console.log(updatedData);
 
       try {
-        this.useBusinessStore.updateContent(
+        await this.useBusinessStore.updateContent(
           this.businessId,
           updatedData,
           this.businessContent.id
@@ -257,7 +257,7 @@ export default {
 
     async deleteContent(id) {
       try {
-        this.useBusinessStore.deleteContent(
+        await this.useBusinessStore.deleteContent(
           this.businessId,
           this.businessContent.id
         );
