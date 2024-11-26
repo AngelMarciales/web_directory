@@ -179,11 +179,11 @@ export default {
             },
           }
         );
-        this.message = "Usuario creado con exito ";
-        this.openModal("defaultmodal");
+        alert("Usuario creado con exito ");
+        const modal = document.getElementById("create_manager");
+        modal.close();
       } catch (error) {
-        this.message = "Ha ocurrido un error: " + error.response;
-        this.openModal("defaultmodal");
+        alert("Ha ocurrido un error: \n" + error.response.data);
       }
     },
     openModal(id) {
@@ -195,14 +195,6 @@ export default {
         console.error(`Modal con id ${id} no encontrado.`);
       }
     },
-  },
-  closeModal(id) {
-    const modal = document.getElementById(id);
-    if (modal) {
-      modal.close();
-    } else {
-      console.error(`Modal con id ${id} no encontrado.`);
-    }
   },
 };
 </script>

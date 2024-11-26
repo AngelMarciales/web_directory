@@ -81,7 +81,7 @@
           <div class="col-span-6 row-start-3">
             <label class="form-control w-full">
               <div class="label">
-                <span class="label-text">Longitud: </span>
+                <span class="label-text">Latitud: </span>
               </div>
               <Field
                 v-model="latitude"

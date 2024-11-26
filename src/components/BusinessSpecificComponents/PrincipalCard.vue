@@ -4,7 +4,7 @@
       <img
         :src="
           business.images && business.images.length > 0
-            ? business.images[1].url
+            ? business.images[0].url
             : 'https://i.ibb.co/nnc7CkR/default-image.jpg'
         "
       />

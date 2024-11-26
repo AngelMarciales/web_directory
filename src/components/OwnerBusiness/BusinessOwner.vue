@@ -1,7 +1,7 @@
 <template>
   <main v-if="business">
     <PrincipalCard :key="business.id" :business="business" />
-    <div class="main-content grid grid-cols-12 auto-rows-auto gap-10">
+    <div class="main-content grid grid-cols-12 auto-rows-auto gap-24">
       <div class="col-span-8 col-start-1 row-span-1">
         <div class="dropdown dropdown-left">
           <div tabindex="0" role="button" class="btn m-1">...</div>

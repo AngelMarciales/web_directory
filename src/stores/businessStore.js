@@ -104,7 +104,6 @@ export const useBusinessStore = defineStore("businessStore", {
         });
         this.businessById = response.data;
       } catch (error) {
-        console.error("Error al cargar los negocios:", error);
       }
     },
 
@@ -150,7 +149,6 @@ export const useBusinessStore = defineStore("businessStore", {
         );
         this.businessAverageReview = response.data;
       } catch (error) {
-        console.error("Error al cargar los negocios:", error);
       }
     },
 
@@ -182,7 +180,7 @@ export const useBusinessStore = defineStore("businessStore", {
           },
         });
         this.getEnabled();
-        console.log("Negocio actualizado con éxito");
+        alert("Negocio actualizado con éxito")
       } catch (error) {
         console.error("Error al actualizar el negocio:", error);
       }
@@ -239,7 +237,7 @@ export const useBusinessStore = defineStore("businessStore", {
         this.getEnabled();
         alert("Ubicación del negocio actualizada con éxito");
       } catch (error) {
-        console.error("Error al actualizar la ubicación del negocio:", error);
+        alert("Error al actualizar la ubicación del negocio:", error.response.data);
       }
     },
 
@@ -247,15 +245,15 @@ export const useBusinessStore = defineStore("businessStore", {
       const token = this.getToken();
       if (!token) return; // Si no hay token, no hacemos la petición
       try {
-        await api.put(`/api/businesses/${businessId}/hours`, updatedHours, {
+        await api.post(`/api/businesses/${businessId}/hours`, updatedHours, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         this.getEnabled();
-        console.log("Horario del negocio actualizado con éxito");
+        alert("Horario del negocio actualizado con éxito");
       } catch (error) {
-        console.error("Error al actualizar el horario del negocio:", error);
+        alert("Error al actualizar el horario del negocio:\n"+ error.response.data);
       }
     },
 

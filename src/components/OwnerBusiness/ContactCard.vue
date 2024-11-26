@@ -17,7 +17,7 @@
       <h2 class="card-title">Dirección</h2>
       <p>{{ business.address }}</p>
       <p>_________________________________________________</p>
-      <h2 class="card-title">Dirección</h2>
+      <h2 class="card-title">Pagina web</h2>
       <a class="link">{{ business.website }}</a>
     </div>
   </div>

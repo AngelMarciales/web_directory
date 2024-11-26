@@ -117,6 +117,19 @@ export default {
       this.currentPage = page;
     },
   },
+  watch: {
+    // Watch para detectar cambios en los filtros y actualizar la lista de negocios
+    showEnabled(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.fetchBusinessList();
+      }
+    },
+    showDisabled(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.fetchBusinessList();
+      }
+    },
+  },
   components: {
     BusinessAdminCard,
     SearchBar,

@@ -91,6 +91,7 @@ export default {
       try {
         this.useBusinessStore.updateBusiness(this.business.id, data);
         this.$emit("statusChanged");
+        //window.location.reload();
       } catch (error) {
         console.error("Error al realizar la solicitud:", error);
       }
