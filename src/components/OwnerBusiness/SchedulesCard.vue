@@ -10,9 +10,9 @@
       </thead>
       <tbody>
         <tr v-for="(hour, index) in displayedHours" :key="index">
-          <td>{{ getDayName(index) }}</td>
-          <td>{{ hour.openingTime || "N/A" }}</td>
-          <td>{{ hour.closingTime || "N/A" }}</td>
+          <td>{{ hour.day }}</td>
+          <td>{{ hour.openingTime }}</td>
+          <td>{{ hour.closingTime }}</td>
         </tr>
       </tbody>
     </table>
@@ -29,27 +29,39 @@ export default {
   },
   data() {
     return {
-      displayedHours: [], // Para almacenar los horarios actuales
+      displayedHours: [],
     };
   },
   watch: {
-    // Watcher para reaccionar a cambios en business.businessHours
     "business.businessHours": {
-      deep: true, // Observa cambios internos en el array
-      immediate: true, // Ejecuta el watcher al inicializar el componente
+      deep: true,
+      immediate: true,
       handler(newHours) {
-        if (newHours && newHours.length) {
-          this.displayedHours = newHours;
-        } else {
-          this.displayedHours = [];
-        }
+        this.updateDisplayedHours(newHours || []);
       },
     },
   },
   methods: {
-    getDayName(index) {
-      const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
-      return days[index] || "Desconocido";
+    updateDisplayedHours(newHours) {
+      // Mapeo de días en inglés a español
+      const dayMap = {
+        MONDAY: "Lunes",
+        TUESDAY: "Martes",
+        WEDNESDAY: "Miércoles",
+        THURSDAY: "Jueves",
+        FRIDAY: "Viernes",
+        SATURDAY: "Sábado",
+        SUNDAY: "Domingo",
+      };
+
+      // Filtrar días con horarios válidos
+      this.displayedHours = newHours
+        .filter((hour) => hour.openingTime && hour.closingTime) // Solo días con horarios válidos
+        .map((hour) => ({
+          day: dayMap[hour.dayWeek] || "Desconocido",
+          openingTime: hour.openingTime,
+          closingTime: hour.closingTime,
+        }));
     },
   },
 };
