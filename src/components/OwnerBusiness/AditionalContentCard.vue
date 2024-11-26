@@ -240,7 +240,7 @@ export default {
         price: this.price,
         imageUrl: this.image,
       };
-      console.log(updatedData)
+      console.log(updatedData);
 
       try {
         this.useBusinessStore.updateContent(
@@ -251,8 +251,6 @@ export default {
         this.closeModal(id);
         window.location.reload();
       } catch (error) {
-        this.message = "Error al actualizar el evento:";
-        this.openModal("defaultmodal");
         console.error("Error al actualizar el evento:", error.data);
       }
     },

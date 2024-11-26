@@ -136,6 +136,7 @@
           </div>
           <div>
             <select id="hora" v-model="mondayOpening">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -143,6 +144,7 @@
           </div>
           <div>
             <select id="hora" v-model="mondayClosing">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -155,6 +157,7 @@
           </div>
           <div>
             <select id="hora" v-model="tuesdayOpening">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -162,6 +165,7 @@
           </div>
           <div>
             <select id="hora" v-model="tuesdayClosing">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -174,6 +178,7 @@
           </div>
           <div>
             <select id="hora" v-model="wednesdayOpening">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -181,6 +186,7 @@
           </div>
           <div>
             <select id="hora" v-model="wednesdayClosing">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -193,6 +199,7 @@
           </div>
           <div>
             <select id="hora" v-model="thursdayOpening">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -200,6 +207,7 @@
           </div>
           <div>
             <select id="hora" v-model="thursdayClosing">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -212,6 +220,7 @@
           </div>
           <div>
             <select id="hora" v-model="fridayOpening">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -219,6 +228,7 @@
           </div>
           <div>
             <select id="hora" v-model="fridayClosing">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -231,6 +241,7 @@
           </div>
           <div>
             <select id="hora" v-model="saturdayOpening">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -238,6 +249,7 @@
           </div>
           <div>
             <select id="hora" v-model="saturdayClosing">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -250,6 +262,7 @@
           </div>
           <div>
             <select id="hora" v-model="sundayOpening">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -257,6 +270,7 @@
           </div>
           <div>
             <select id="hora" v-model="sundayClosing">
+              <option value="">Sin horario</option>
               <option v-for="hora in hours" :key="hora" :value="hora">
                 {{ hora }}
               </option>
@@ -314,20 +328,20 @@ export default {
     return {
       schema,
       hours: this.generateHours(),
-      mondayOpening: this.getOpeningTime("MONDAY") || "06:00",
-      mondayClosing: this.getClosingTime("MONDAY") || "18:00",
-      tuesdayOpening: this.getOpeningTime("TUESDAY") || "06:00",
-      tuesdayClosing: this.getClosingTime("TUESDAY") || "18:00",
-      wednesdayOpening: this.getOpeningTime("WEDNESDAY") || "06:00",
-      wednesdayClosing: this.getClosingTime("WEDNESDAY") || "18:00",
-      thursdayOpening: this.getOpeningTime("THURSDAY") || "06:00",
-      thursdayClosing: this.getClosingTime("THURSDAY") || "18:00",
-      fridayOpening: this.getOpeningTime("FRIDAY") || "06:00",
-      fridayClosing: this.getClosingTime("FRIDAY") || "18:00",
-      saturdayOpening: this.getOpeningTime("SATURDAY") || "06:00",
-      saturdayClosing: this.getClosingTime("SATURDAY") || "18:00",
-      sundayOpening: this.getOpeningTime("SUNDAY") || "06:00",
-      sundayClosing: this.getClosingTime("SUNDAY") || "18:00",
+      mondayOpening: this.getOpeningTime("MONDAY"),
+      mondayClosing: this.getClosingTime("MONDAY"),
+      tuesdayOpening: this.getOpeningTime("TUESDAY"),
+      tuesdayClosing: this.getClosingTime("TUESDAY"),
+      wednesdayOpening: this.getOpeningTime("WEDNESDAY"),
+      wednesdayClosing: this.getClosingTime("WEDNESDAY"),
+      thursdayOpening: this.getOpeningTime("THURSDAY"),
+      thursdayClosing: this.getClosingTime("THURSDAY"),
+      fridayOpening: this.getOpeningTime("FRIDAY"),
+      fridayClosing: this.getClosingTime("FRIDAY"),
+      saturdayOpening: this.getOpeningTime("SATURDAY"),
+      saturdayClosing: this.getClosingTime("SATURDAY"),
+      sundayOpening: this.getOpeningTime("SUNDAY"),
+      sundayClosing: this.getClosingTime("SUNDAY"),
     };
   },
   computed: {
@@ -389,44 +403,53 @@ export default {
       return horasArray;
     },
     async updateSchedules(id) {
-      // Actualizar los horarios basados en los valores de los v-model
-      const updatedBusinessHours = [
+      // Crea los horarios únicamente si openingTime y closingTime son válidos
+      const days = [
         {
-          dayWeek: "MONDAY",
-          openingTime: this.mondayOpening,
-          closingTime: this.mondayClosing,
+          day: "MONDAY",
+          opening: this.mondayOpening,
+          closing: this.mondayClosing,
         },
         {
-          dayWeek: "TUESDAY",
-          openingTime: this.tuesdayOpening,
-          closingTime: this.tuesdayClosing,
+          day: "TUESDAY",
+          opening: this.tuesdayOpening,
+          closing: this.tuesdayClosing,
         },
         {
-          dayWeek: "WEDNESDAY",
-          openingTime: this.wednesdayOpening,
-          closingTime: this.wednesdayClosing,
+          day: "WEDNESDAY",
+          opening: this.wednesdayOpening,
+          closing: this.wednesdayClosing,
         },
         {
-          dayWeek: "THURSDAY",
-          openingTime: this.thursdayOpening,
-          closingTime: this.thursdayClosing,
+          day: "THURSDAY",
+          opening: this.thursdayOpening,
+          closing: this.thursdayClosing,
         },
         {
-          dayWeek: "FRIDAY",
-          openingTime: this.fridayOpening,
-          closingTime: this.fridayClosing,
+          day: "FRIDAY",
+          opening: this.fridayOpening,
+          closing: this.fridayClosing,
         },
         {
-          dayWeek: "SATURDAY",
-          openingTime: this.saturdayOpening,
-          closingTime: this.saturdayClosing,
+          day: "SATURDAY",
+          opening: this.saturdayOpening,
+          closing: this.saturdayClosing,
         },
         {
-          dayWeek: "SUNDAY",
-          openingTime: this.sundayOpening,
-          closingTime: this.sundayClosing,
+          day: "SUNDAY",
+          opening: this.sundayOpening,
+          closing: this.sundayClosing,
         },
       ];
+
+      const updatedBusinessHours = days
+        .filter(({ opening, closing }) => opening && closing) // Excluir horarios nulos o vacíos
+        .map(({ day, opening, closing }) => ({
+          dayWeek: day,
+          openingTime: opening,
+          closingTime: closing,
+        }));
+
       try {
         await this.useBusinessStore.updateHours(
           this.business?.id,
@@ -435,20 +458,48 @@ export default {
         this.closeModal(id);
         window.location.reload();
       } catch (error) {
-        console.error("Error al actualizar la ubicación:", error);
+        console.error("Error al actualizar los horarios:", error);
       }
     },
+
     getOpeningTime(day) {
       const daySchedule = this.business?.businessHours?.find(
         (schedule) => schedule.dayWeek === day
       );
-      return daySchedule?.openingTime.slice(0, 5);
+      return daySchedule?.openingTime
+        ? daySchedule.openingTime.slice(0, 5)
+        : null;
     },
     getClosingTime(day) {
       const daySchedule = this.business?.businessHours?.find(
         (schedule) => schedule.dayWeek === day
       );
-      return daySchedule?.closingTime.slice(0, 5);
+      return daySchedule?.closingTime
+        ? daySchedule.closingTime.slice(0, 5)
+        : null;
+    },
+  },
+  watch: {
+    business: {
+      immediate: true, // Ejecutar al inicializar el componente
+      handler(newBusiness) {
+        if (newBusiness && newBusiness.businessHours) {
+          this.mondayOpening = this.getOpeningTime("MONDAY");
+          this.mondayClosing = this.getClosingTime("MONDAY");
+          this.tuesdayOpening = this.getOpeningTime("TUESDAY");
+          this.tuesdayClosing = this.getClosingTime("TUESDAY");
+          this.wednesdayOpening = this.getOpeningTime("WEDNESDAY");
+          this.wednesdayClosing = this.getClosingTime("WEDNESDAY");
+          this.thursdayOpening = this.getOpeningTime("THURSDAY");
+          this.thursdayClosing = this.getClosingTime("THURSDAY");
+          this.fridayOpening = this.getOpeningTime("FRIDAY");
+          this.fridayClosing = this.getClosingTime("FRIDAY");
+          this.saturdayOpening = this.getOpeningTime("SATURDAY");
+          this.saturdayClosing = this.getClosingTime("SATURDAY");
+          this.sundayOpening = this.getOpeningTime("SUNDAY");
+          this.sundayClosing = this.getClosingTime("SUNDAY");
+        }
+      },
     },
   },
 };

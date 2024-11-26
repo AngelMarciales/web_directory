@@ -369,9 +369,9 @@ export const useBusinessStore = defineStore("businessStore", {
           }
         );
         this.getEnabled();
-        console.log("Contenido eliminado con éxito del negocio");
+        alert("Contenido eliminado con éxito del negocio");
       } catch (error) {
-        console.error("Error al eliminar el contenido del negocio:", error);
+        alert("Error al eliminar el contenido del negocio:", error.response.data);
       }
     },
 
@@ -389,7 +389,7 @@ export const useBusinessStore = defineStore("businessStore", {
           }
         );
         this.getEnabled();
-        console.log("Reseña agregada con éxito");
+        alert("Reseña agregada con éxito");
       } catch (error) {
         console.error("Error al agregar la reseña:", error);
       }
@@ -410,7 +410,7 @@ export const useBusinessStore = defineStore("businessStore", {
           }
         );
         this.getEnabled();
-        console.log("Reseña actualizada con éxito");
+        alert("Reseña actualizada con éxito");
       } catch (error) {
         console.error("Error al actualizar la reseña:", error);
       }

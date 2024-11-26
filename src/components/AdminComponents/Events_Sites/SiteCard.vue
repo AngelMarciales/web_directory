@@ -78,7 +78,7 @@
             </label>
           </div>
 
-          <div class="col-span-6 row-start-3">
+          <div class="col-span-3 row-start-3">
             <label class="form-control w-full">
               <div class="label">
                 <span class="label-text">Latitud: </span>
@@ -94,7 +94,7 @@
             </label>
           </div>
 
-          <div class="col-span-6 row-start-3">
+          <div class="col-span-3 row-start-3">
             <label class="form-control w-full">
               <div class="label">
                 <span class="label-text">Longitud: </span>
